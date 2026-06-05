@@ -33,7 +33,7 @@ section{padding:clamp(60px,8vw,108px) 0}
 h2.sec{font-family:var(--display);font-size:clamp(28px,3.8vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.12;text-wrap:balance;margin-bottom:14px;max-width:20ch}
 .sec-lead{font-size:17px;color:var(--ink-2);max-width:58ch;margin-bottom:48px}
 .kicker{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--coral-d);margin-bottom:12px}
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:700;font-size:15px;text-decoration:none;border-radius:12px;padding:13px 22px;border:none;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:700;font-size:15px;text-decoration:none;border-radius:12px;padding:13px 22px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .25s}
 .btn svg{width:18px;height:18px;transition:transform .35s var(--ease)}
 .btn:hover svg{transform:translateX(4px)}
 .btn-primary{background:var(--ink);color:#fff;box-shadow:0 10px 24px oklch(0.24 0.02 255/.22)}
@@ -44,7 +44,7 @@ h2.sec{font-family:var(--display);font-size:clamp(28px,3.8vw,44px);font-weight:8
 /* nav */
 .nav{position:sticky;top:0;z-index:80;background:oklch(0.985 0.004 235/.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
 .nav .wrap{display:flex;align-items:center;height:68px;gap:26px}
-.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;flex-shrink:0}
 .logo .m{width:32px;height:32px;border-radius:10px;background:var(--ink);position:relative}
 .logo .m::before{content:"";position:absolute;inset:0;margin:auto;width:0;height:0;left:3px;border-style:solid;border-width:6px 0 6px 9px;border-color:transparent transparent transparent var(--coral)}
 .logo .m::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--teal);right:6px;top:6px}
@@ -54,6 +54,15 @@ h2.sec{font-family:var(--display);font-size:clamp(28px,3.8vw,44px);font-weight:8
 .nav a.lnk{font-size:14.5px;color:var(--ink-2);text-decoration:none;font-weight:500}
 .nav a.lnk:hover{color:var(--ink)}
 .nav .btn{padding:10px 18px;font-size:14px}
+/* mobile nav — hide secondary links, keep logo + primary CTA, no overflow */
+@media(max-width:600px){
+  .nav .wrap{gap:14px;height:60px}
+  .nav a.lnk{display:none}
+  .nav .links{gap:0}
+  .nav .btn{padding:9px 15px;font-size:13.5px}
+  .logo .t{font-size:15px}
+  .logo .t span{font-size:9px}
+}
 
 /* hero */
 .hero{position:relative;overflow:hidden;padding:clamp(48px,7vw,84px) 0 clamp(60px,8vw,100px)}
