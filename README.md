@@ -27,11 +27,3 @@ python3 -m http.server 8000   # 在 repo 根目錄執行,然後開 http://localh
 ```
 
 連結皆為相對路徑(`index → pages/pageN.html`、各頁 → `../index.html`),從根目錄開啟即可。
-
-## 部署 / 推送
-
-本 repo 對應遠端 `https://github.com/Wesely/retail-mcn-web`。推送前先 fetch 遠端歷史(避免 unrelated histories):
-
-```sh
-git push -u origin main
-```
