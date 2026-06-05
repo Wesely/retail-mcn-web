@@ -1,41 +1,83 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>銷售 MCN</title>
-  <style>
-    :root { color-scheme: light dark; }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: -apple-system, "PingFang TC", "Noto Sans TC", system-ui, sans-serif;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #0f172a;
-      color: #e2e8f0;
-      line-height: 1.6;
-    }
-    main {
-      text-align: center;
-      padding: 2rem;
-    }
-    h1 {
-      font-size: clamp(2rem, 6vw, 3.5rem);
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-    p {
-      margin-top: 1rem;
-      color: #94a3b8;
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live MCN — 入口</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <main>
-    <h1>Hello</h1>
-    <p>銷售 MCN — 網站建置中</p>
-  </main>
+
+<div class="shell">
+
+  <div class="brand reveal d1">
+    <div class="mark"></div>
+    <div class="name">Live MCN<span>LIVE COMMERCE MCN</span></div>
+  </div>
+
+  <div class="lede reveal d2">
+    <div class="stat-line"><span class="live"><i></i>內部 Demo</span>v4 · 2026-06-03</div>
+    <h1>一個窗口，串起整個<em>直播銷售</em>生態。</h1>
+    <p>從直播電商龍頭背景團隊獨立而出的 MCN 管理公司。這個入口收了四份頁面——<b>兩份對外招商</b>（說服品牌方與直播主／團購主合作），<b>兩份對內規劃</b>（讓自己人對齊系統藍圖與待決事項）。每張卡片都標明了對象與用途，點進去即可瀏覽。</p>
+  </div>
+
+  <section class="group reveal d3">
+    <div class="group-head">
+      <h2>對外頁面</h2>
+      <span class="badge pub">可公開分享</span>
+      <span class="rule"></span>
+      <span class="meta">02 pages</span>
+    </div>
+    <div class="cards">
+      <a class="card c-teal" href="pages/page1.html">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h0M9 13h0M9 17h0M15 9h0M15 13h0M15 17h0"/></svg></div>
+        <h3>給品牌方</h3>
+        <p><b>對象：有貨想賣的品牌／中盤商。</b>說明「一份合約接通整個直播銷售生態」——痛點對照表、六步合作流程、品類成效示意與洽談表單。讓品牌願意把貨交給我們。</p>
+        <span class="go">進入頁面 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="card c-coral" href="pages/page2.html">
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3zM7 20h4"/></svg></div>
+        <h3>給直播主 · 團購主</h3>
+        <p><b>對象：想接案的直播主／團購主。</b>主打「人到就好，剩下的我們搞定」——選品、案型、場地、出貨、結算全包，附下次檔期與夥伴回饋。讓主播願意來開播。</p>
+        <span class="go">進入頁面 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="group reveal d4">
+    <div class="group-head">
+      <h2>內部頁面</h2>
+      <span class="badge int">僅供自己人</span>
+      <span class="rule"></span>
+      <span class="meta">02 pages</span>
+    </div>
+    <div class="cards">
+      <a class="card c-teal" href="pages/page3.html">
+        <span class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>INTERNAL</span>
+        <div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="8.5" y="14" width="7" height="7" rx="1.5"/><path d="M6.5 10v2.5h11V10M12 14v-1.5"/></svg></div>
+        <h3>系統架構規劃</h3>
+        <p><b>用途：對齊「我們要建什麼」。</b>三層系統架構圖、五大資料庫、直播前中後流程、AI 治理與工具拼裝——給自己人看的技術藍圖，不對外。</p>
+        <span class="go">進入頁面 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="card c-coral" href="pages/page4.html">
+        <span class="lock"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>INTERNAL</span>
+        <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h0M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+        <h3>TBD 盤點板</h3>
+        <p><b>用途：追蹤還沒拍板的事。</b>紅色 TBD 板、技術可行性矩陣、風險與決議進度——邊做邊更新的 living spec，商業條款定案後在這裡反映。</p>
+        <span class="go">進入頁面 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <div class="foot reveal d5">
+    <span><b>對外禁字</b>前公司名、校友會、具體 take rate、未授權真案例（見 Master Brief 附錄 B）。</span>
+    <span><b>資料狀態</b>案例與數據皆為 placeholder 假資料，待授權後替換。</span>
+  </div>
+
+</div>
+
 </body>
 </html>

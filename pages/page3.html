@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系統架構規劃（內部）— Live MCN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="page3.css">
+</head>
+<body>
+
+<div class="ibar"><div class="wrap"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>內部文件</b> · 僅供自己人 · 訪問控制 W3 待決定（建議 password gate 或子域 + Cloudflare Access）</span></div></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="top" href="../index.html" style="text-decoration:none;color:inherit"><span class="m"></span><span class="ttl">Live MCN<span>SYSTEM ARCHITECTURE · v4 · 2026-06-03</span></span></a>
+    <h1>我們要建什麼系統</h1>
+    <p>向前看的規劃藍圖：一套 B2B-only、平台中立、不碰 C 端的營運系統，支撐「人到就播」的全包式服務與 Agent / Net 佣金模式。</p>
+    <div class="tagrow">
+      <span class="t teal">B2B-only</span><span class="t green">平台中立</span><span class="t amber">不碰 C 端</span><span class="t violet">Agent / Net 模式</span><span class="t green">含稅 / 未稅雙向</span>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">系統架構圖</h2>
+    <p class="sec-lead">三層結構：上游貨盤 → 我們的營運平台 → 下游銷售渠道。圖中箭頭代表層與層之間流動的「資料 / 貨 / 價值」，方向即流向（↓ 往下游交付、↑ 往上游回饋）。我們只做 B2B 撮合與營運，不經手 C 端金流、不持顧客資料、不負客服。</p>
+
+    <div class="arch">
+      <div class="arch-legend">
+        <span class="lk"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>往下游：交付／提供</span>
+        <span class="sep"></span>
+        <span class="lk"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>往上游：回饋／回收</span>
+        <span class="sep"></span>
+        <span>每條箭頭標示「從誰 → 給誰」與流動的內容</span>
+      </div>
+
+      <div class="tier">
+        <span class="tier-name">上游 · 貨盤</span>
+        <div class="nodes">
+          <div class="node"><div class="nh"><span class="ic teal"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>品牌方</div><p>提供貨源、目標、案型需求</p></div>
+          <div class="node"><div class="nh"><span class="ic teal"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>中盤商</div><p>多品類貨源整合</p></div>
+        </div>
+      </div>
+
+      <div class="conn">
+        <div class="lane down"><span class="dir"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span><b>上游 → 平台</b><span class="lbl">貨源、供貨條件、更深折扣</span></div>
+        <div class="lane up"><span class="dir"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><b>平台 → 上游</b><span class="lbl">銷量預估、銷售回報</span></div>
+      </div>
+
+      <div class="tier core">
+        <span class="tier-name">我們的平台</span>
+        <div class="core-head">
+          <h3>Live MCN 營運系統</h3>
+          <div class="princ"><span>不接金流</span><span>不持顧客資料</span><span>不負客服</span><span>只認佣金為營收</span></div>
+        </div>
+        <div class="nodes">
+          <div class="node"><div class="nh"><span class="ic violet"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>選品 · 案型</div><p>案型庫 + AI 模仿專家設計</p></div>
+          <div class="node"><div class="nh"><span class="ic violet"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span>配對引擎</div><p>直播主 Tag × 品牌 × 商品</p></div>
+          <div class="node"><div class="nh"><span class="ic violet"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span>排期 · 場控</div><p>場次狀態管理 (CRUD)</p></div>
+          <div class="node"><div class="nh"><span class="ic violet"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>佣金結算</div><p>含稅 / 未稅雙向換算</p></div>
+        </div>
+        <div class="boundary"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/></svg></span><div><b>平台中立 · 系統邊界（不做的事）</b><p>平台中立，不經手任何直播產生的訂單；消費者側金流、退款、發票、客服、顧客個資全歸品牌方與直播主。我們符合 IFRS 15 Agent 定義，只認列佣金。</p></div></div>
+      </div>
+
+      <div class="conn">
+        <div class="lane down"><span class="dir"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg></span><b>平台 → 下游</b><span class="lbl">案型、排期、銷售清單</span></div>
+        <div class="lane up"><span class="dir"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></span><b>下游 → 平台</b><span class="lbl">GMV、take rate（內部計算佣金）</span></div>
+      </div>
+
+      <div class="tier">
+        <span class="tier-name">下游 · 銷售渠道</span>
+        <div class="nodes">
+          <div class="node"><div class="nh"><span class="ic green"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3z"/></svg></span>網紅 / 直播主</div><p>擅長領域帶貨</p></div>
+          <div class="node"><div class="nh"><span class="ic green"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg></span>團購主 / 私域</div><p>社群分眾銷售</p></div>
+        </div>
+      </div>
+
+      <div class="oos">
+        <span class="oic"><svg viewBox="0 0 24 24"><path d="M15 3h6v6M21 3l-9 9M11 5H6a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-5"/></svg></span>
+        <div>
+          <span class="otag">系統範圍外 · 平台不接觸</span>
+          <b>C 端消費者</b>
+          <p>由渠道（直播主 / 團購主）直接面對：下單、收款、開發票、退款與客服都在渠道與品牌方之間發生，消費者金流與個資完全不經我們的系統。畫在這裡只為標明貨最終流向，並非平台節點——我們符合 IFRS 15 Agent 定義，只認列佣金。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--panel);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="sec">五大資料庫</h2>
+    <p class="sec-lead">場地庫、品牌庫、直播主庫（含 Tag / 分級）、案型庫、結算庫。直播主分級 S/A/B/C 為內部欄位，對外不公開。</p>
+    <div class="dm">
+      <div class="db">
+        <div class="dbh"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>場地庫</div>
+        <ul><li><span>venue_id</span><span class="pk">PK</span></li><li><span>容納人數</span><span class="ty">int</span></li><li><span>格局</span><span class="ty">text</span></li><li><span>活動照片</span><span class="ty">img[]</span></li><li><span>＊不養護</span><span class="ty">flag</span></li></ul>
+      </div>
+      <div class="db">
+        <div class="dbh"><span class="ic"><svg viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></span>品牌庫</div>
+        <ul><li><span>brand_id</span><span class="pk">PK</span></li><li><span>品類</span><span class="ty">tag[]</span></li><li><span>供貨價</span><span class="ty">money</span></li><li><span>tax_incl</span><span class="ty">bool</span></li><li><span>合作條件</span><span class="ty">json</span></li></ul>
+      </div>
+      <div class="db">
+        <div class="dbh"><span class="ic"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3z"/></svg></span>直播主庫</div>
+        <ul><li><span>host_id</span><span class="pk">PK</span></li><li><span>分級 S/A/B/C</span><span class="ty">enum</span></li><li><span>Tag</span><span class="ty">tag[]</span></li><li><span>擅長品類</span><span class="ty">tag[]</span></li><li><span>歷史成效</span><span class="ty">ref</span></li></ul>
+      </div>
+      <div class="db">
+        <div class="dbh"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>案型庫</div>
+        <ul><li><span>offer_id</span><span class="pk">PK</span></li><li><span>類型</span><span class="ty">enum</span></li><li><span>買幾送幾</span><span class="ty">rule</span></li><li><span>組合 / 滿額</span><span class="ty">rule</span></li><li><span>AI 生成源</span><span class="ty">ref</span></li></ul>
+      </div>
+      <div class="db">
+        <div class="dbh"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>結算庫</div>
+        <ul><li><span>settle_id</span><span class="pk">PK</span></li><li><span>場次</span><span class="ty">FK</span></li><li><span>GMV</span><span class="ty">money</span></li><li><span>take rate</span><span class="ty">%</span></li></ul>
+      </div>
+    </div>
+    <p class="note">// 關聯：場次 = 場地 × 品牌[] × 直播主 × 案型[] → 產生結算紀錄。同場多品牌歸戶見 TBD B4。</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec">直播前 · 中 · 後流程</h2>
+    <p class="sec-lead">一場直播的完整生命週期，每階段對應系統模組與資料寫入點。</p>
+    <div class="phases">
+      <div class="phase pre">
+        <div class="ph-h"><span class="n">前</span><div><h4>直播前</h4><span class="lab">PRE-LIVE</span></div></div>
+        <div class="stepline">
+          <div class="sl"><span class="dot"></span><div><b>選品</b><span class="tx">從品牌庫挑品、估銷量</span></div></div>
+          <div class="sl"><span class="dot"></span><div><b>案型設計</b><span class="tx">套用 / AI 生成案型庫</span></div></div>
+          <div class="sl"><span class="dot"></span><div><b>渠道配對</b><span class="tx">Tag 媒合直播主</span></div></div>
+          <div class="sl"><span class="dot"></span><div><b>排期</b><span class="tx">場地 + 檔期排定</span></div></div>
+        </div>
+      </div>
+      <div class="phase live">
+        <div class="ph-h"><span class="n">中</span><div><h4>直播中</h4><span class="lab">LIVE</span></div></div>
+        <div class="stepline">
+          <div class="sl"><span class="dot"></span><div><b>場控</b><span class="tx">流程與狀態管理</span></div></div>
+        </div>
+      </div>
+      <div class="phase post">
+        <div class="ph-h"><span class="n">後</span><div><h4>直播後</h4><span class="lab">POST-LIVE</span></div></div>
+        <div class="stepline">
+          <div class="sl"><span class="dot"></span><div><b>佣金結算</b><span class="tx">take rate 計算入帳</span></div></div>
+          <div class="sl"><span class="dot"></span><div><b>AI 場後評分</b><span class="tx">綜合成效 + 數據回饋</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--panel);border-top:1px solid var(--line)">
+  <div class="wrap">
+    <h2 class="sec">AI 治理規劃 · 工具拼裝</h2>
+    <p class="sec-lead">AI 不做決策，做記錄、提供決策資訊與建議；用現成工具拼裝起步，不自建。</p>
+    <div class="two">
+      <div class="panel">
+        <h3>AI 治理規劃</h3>
+        <p class="pl">條例與文字歸案是基礎。</p>
+        <div class="ai-item"><span class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></span><div><b>會議紀錄</b><p>自動轉錄、摘要、行動項追蹤。</p></div></div>
+        <div class="ai-item"><span class="ic"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 0-5 0V6.5"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5"/></svg></span><div><b>決策諮詢</b><p>跨資料源查詢，提供決策所需資訊與建議。</p></div></div>
+        <div class="ai-item"><span class="ic"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></span><div><b>條例歸案</b><p>原則、合約條款、TBD 決議全部入庫，living spec。</p></div></div>
+        <div class="ai-item"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span><div><b>案型模仿</b><p>LLM + few-shot 學專家案型，需先有零散商品清單。</p></div></div>
+      </div>
+      <div class="panel">
+        <h3>工具拼裝建議</h3>
+        <p class="pl">各模組對應現成工具。</p>
+        <div class="tool-row"><span class="badge">Claude Code</span><span class="desc"><b>日常輔助</b> · 帳務、文件、自動化、資料處理</span></div>
+        <div class="tool-row"><span class="badge">Google Cloud</span><span class="desc"><b>雲端基礎</b> · 資料庫、運算、部署與服務串接</span></div>
+        <p class="note">// 結論：技術可行性整體 🟢-🟡，無真正 blocker。最大不確定性在商業條款，見 TBD 盤點板。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="backhome"><a href="../index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>回專案入口</a></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Live MCN · 內部系統架構 · v4 · 2026-06-03 · living document</span>
+    <a href="page4.html">下一頁：TBD 盤點板 →</a>
+  </div>
+</footer>
+
+</body>
+</html>

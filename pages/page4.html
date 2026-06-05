@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live MCN · TBD 待辦盤點（內部）</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Noto+Sans+TC:wght@400;500;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg: oklch(0.985 0.005 160);
+  --paper: oklch(0.965 0.008 158);
+  --surface: oklch(1 0 0);
+  --ink: oklch(0.25 0.025 162);
+  --ink-soft: oklch(0.42 0.022 162);
+  --muted: oklch(0.55 0.018 160);
+  --green: oklch(0.44 0.08 162);
+  --green-deep: oklch(0.30 0.06 164);
+  --green-bright: oklch(0.58 0.11 156);
+  --amber: oklch(0.75 0.14 75);
+  --amber-deep: oklch(0.58 0.13 68);
+  --red: oklch(0.60 0.18 28);
+  --red-soft: oklch(0.64 0.17 30);
+  --orange: oklch(0.70 0.16 54);
+  --border: oklch(0.89 0.012 158);
+  --border-strong: oklch(0.80 0.018 160);
+  --grid-line: oklch(0.962 0.005 160);
+  --r:14px; --maxw:1180px; --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Noto Sans TC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+  background-size:34px 34px;background-position:center}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(18px,4vw,40px)}
+a{color:inherit;text-decoration:none}
+.mono{font-family:"Geist Mono",monospace}
+
+.confbar{background:var(--green-deep);color:oklch(0.95 0.02 90);font-family:"Geist Mono",monospace;font-size:12px;text-align:center;padding:7px 16px;letter-spacing:0.02em}
+.confbar b{color:var(--orange)}
+
+nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(10px);background:oklch(0.985 0.005 160 / 0.85);border-bottom:1px solid var(--border)}
+.nav-in{max-width:var(--maxw);margin:0 auto;padding:12px clamp(18px,4vw,40px);display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:17px;color:var(--green-deep)}
+.brand .mark{width:30px;height:30px}
+.brand .tag{font-family:"Geist Mono",monospace;font-size:11px;font-weight:500;color:var(--muted);background:var(--paper);border:1px solid var(--border);padding:3px 9px;border-radius:6px;margin-left:4px}
+.nav-links{display:flex;gap:6px;font-family:"Geist Mono",monospace;font-size:12.5px}
+.nav-links a{padding:6px 11px;border-radius:7px;color:var(--ink-soft);transition:background .25s}
+.nav-links a:hover{background:var(--paper);color:var(--green)}
+@media(max-width:640px){.nav-links a:not(.back){display:none}}
+
+header.page{padding:clamp(38px,5vw,64px) 0 clamp(20px,3vw,30px)}
+.doc-meta{font-family:"Geist Mono",monospace;font-size:12px;color:var(--muted);margin-bottom:16px;display:flex;flex-wrap:wrap;gap:8px 18px}
+.doc-meta b{color:var(--green)}
+h1{font-family:"Bricolage Grotesque","Noto Sans TC",sans-serif;font-weight:800;font-size:clamp(2rem,4.6vw,3.2rem);letter-spacing:-0.03em;color:var(--green-deep);line-height:1.05;text-wrap:balance}
+.sub{margin-top:16px;color:var(--ink-soft);font-size:1.08rem;max-width:64ch;text-wrap:pretty}
+
+/* progress dashboard */
+.dash{margin-top:30px;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:clamp(22px,3vw,32px);box-shadow:0 1px 3px oklch(0.3 0.04 162/0.05)}
+.dash-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin-bottom:18px}
+.dash-top .big{font-family:"Bricolage Grotesque";font-weight:800;font-size:clamp(2.4rem,5vw,3.4rem);color:var(--green-deep);letter-spacing:-0.02em;line-height:1}
+.dash-top .big span{font-size:0.4em;color:var(--muted)}
+.dash-top .lbl{font-family:"Geist Mono",monospace;font-size:12px;color:var(--muted);margin-top:4px}
+.legend{display:flex;gap:18px;flex-wrap:wrap}
+.legend .lg{font-family:"Geist Mono",monospace;font-size:12.5px;color:var(--ink-soft);display:flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto}
+.dot.r{background:var(--red)}.dot.a{background:var(--amber)}.dot.g{background:var(--green-bright)}
+.pbar{height:14px;border-radius:999px;background:var(--paper);overflow:hidden;display:flex;border:1px solid var(--border)}
+.pbar i{display:block;height:100%}
+.pbar .pg{background:var(--green-bright)}.pbar .pa{background:var(--amber)}.pbar .pr{background:var(--red-soft)}
+.goal{margin-top:12px;font-family:"Geist Mono",monospace;font-size:11.5px;color:var(--amber-deep);display:flex;align-items:center;gap:8px}
+
+/* filters */
+.filters{margin:30px 0 22px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.filters .grp{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-family:"Geist Mono",monospace;font-size:12.5px;padding:7px 14px;border-radius:999px;border:1px solid var(--border-strong);background:var(--surface);color:var(--ink-soft);cursor:pointer;transition:all .25s}
+.chip:hover{border-color:var(--green)}
+.chip.active{background:var(--green-deep);color:oklch(0.96 0.02 90);border-color:var(--green-deep)}
+.filters .sep{width:1px;height:22px;background:var(--border);margin:0 4px}
+
+/* board */
+.board{display:flex;flex-direction:column;gap:34px}
+.cat{}
+.cat-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}
+.cat-head .id{font-family:"Geist Mono",monospace;font-size:13px;font-weight:600}
+.cat-head h2{font-family:"Bricolage Grotesque","Noto Sans TC";font-weight:700;font-size:1.4rem;color:var(--green-deep);letter-spacing:-0.02em}
+.cat-head .rule{flex:1;height:1px;background:var(--border);align-self:center}
+.cat-head .count{font-family:"Geist Mono",monospace;font-size:11.5px;color:var(--muted)}
+
+.items{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.item{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 20px;transition:transform .35s var(--ease),box-shadow .35s var(--ease),opacity .3s;position:relative}
+.item:hover{transform:translateY(-3px);box-shadow:0 10px 28px oklch(0.3 0.05 162/0.09)}
+.item.hide{display:none}
+.item-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.item-id{font-family:"Geist Mono",monospace;font-weight:600;font-size:13px;color:var(--green);background:var(--paper);padding:3px 9px;border-radius:6px}
+.status{margin-left:auto;font-family:"Geist Mono",monospace;font-size:11px;font-weight:600;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.status.r{color:var(--red);background:oklch(0.60 0.18 28/0.12)}
+.status.a{color:var(--amber-deep);background:oklch(0.75 0.14 75/0.18)}
+.status.g{color:var(--green);background:oklch(0.58 0.11 156/0.16)}
+.item h3{font-size:1.05rem;color:var(--ink);font-weight:700;margin-bottom:8px;line-height:1.35}
+.item .impact{font-size:0.88rem;color:var(--ink-soft);margin-bottom:14px;text-wrap:pretty}
+.item .impact b{color:var(--muted);font-family:"Geist Mono",monospace;font-size:11px;font-weight:400;display:block;margin-bottom:2px}
+.item-prog{height:6px;border-radius:999px;background:var(--paper);overflow:hidden;margin-bottom:12px}
+.item-prog i{display:block;height:100%;border-radius:999px}
+.item-prog i.r{background:var(--red-soft)}.item-prog i.a{background:var(--amber)}.item-prog i.g{background:var(--green-bright)}
+.item-foot{display:flex;justify-content:space-between;gap:10px;font-family:"Geist Mono",monospace;font-size:11px;color:var(--muted);flex-wrap:wrap}
+.item-foot .who{color:var(--green-deep);font-weight:500}
+.item-foot .due{color:var(--ink-soft)}
+
+/* tech matrix */
+.matrix{margin-top:8px;background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.mrow{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 22px;border-bottom:1px solid var(--border);transition:background .2s}
+.mrow:last-child{border-bottom:none}
+.mrow:hover{background:var(--paper)}
+.mrow .mt{font-size:0.96rem;color:var(--ink)}
+.mrow .mt small{display:block;color:var(--muted);font-family:"Geist Mono",monospace;font-size:11px;margin-top:1px}
+.risk{font-family:"Geist Mono",monospace;font-size:12px;font-weight:600;padding:5px 12px;border-radius:999px;white-space:nowrap}
+.risk.g{color:var(--green);background:oklch(0.58 0.11 156/0.15)}
+.risk.a{color:var(--amber-deep);background:oklch(0.75 0.14 75/0.18)}
+.matrix-concl{margin-top:16px;padding:16px 20px;border:1px solid var(--border);border-radius:12px;background:oklch(0.55 0.10 158/0.06);font-size:0.92rem;color:var(--ink-soft);text-wrap:pretty}
+.matrix-concl b{color:var(--green-deep)}
+
+section{padding:clamp(30px,4vw,52px) 0}
+.shead{display:flex;align-items:baseline;gap:14px;margin-bottom:22px}
+.shead .id{font-family:"Geist Mono",monospace;font-size:13px;color:var(--orange);font-weight:600}
+.shead h2{font-family:"Bricolage Grotesque","Noto Sans TC";font-weight:700;font-size:clamp(1.4rem,2.8vw,2rem);color:var(--green-deep);letter-spacing:-0.02em}
+.shead .rule{flex:1;height:1px;background:var(--border);align-self:center}
+
+.empty{display:none;text-align:center;padding:40px;font-family:"Geist Mono",monospace;color:var(--muted);font-size:13px}
+
+footer{border-top:1px solid var(--border);padding:30px 0 50px;margin-top:24px}
+.foot-in{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;font-family:"Geist Mono",monospace;font-size:12px;color:var(--muted)}
+
+.reveal{opacity:0;transform:translateY(16px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}.reveal{opacity:1;transform:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="confbar">🔒 <b>INTERNAL ONLY</b> · living spec · 既是工作面板，也是給投資人「我們不只講樂觀」的清醒 signal</div>
+<nav>
+  <div class="nav-in">
+    <a class="brand" href="../index.html">
+      <svg class="mark" viewBox="0 0 40 40" fill="none"><rect x="1" y="1" width="38" height="38" rx="11" fill="oklch(0.43 0.082 162)"/><circle cx="20" cy="20" r="4.4" fill="oklch(0.72 0.16 56)"/><g stroke="oklch(0.97 0.01 150)" stroke-width="2" stroke-linecap="round"><path d="M20 20 L8 9"/><path d="M20 20 L32 9"/><path d="M20 20 L8 31"/><path d="M20 20 L32 31"/></g><g fill="oklch(0.97 0.01 150)"><circle cx="8" cy="9" r="2.4"/><circle cx="32" cy="9" r="2.4"/><circle cx="8" cy="31" r="2.4"/><circle cx="32" cy="31" r="2.4"/></g></svg>
+      Live MCN<span class="tag">TBD BOARD</span>
+    </a>
+    <div class="nav-links">
+      <a href="#board">TBD 板</a><a href="#matrix">技術矩陣</a>
+      <a class="back" href="../index.html">← 入口</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+  <header class="page">
+    <div class="doc-meta"><span>DOC · 紅色 TBD 板</span><span>對應 Master Brief <b>§8 / §9</b> 頁4</span><span>v0.1 · 2026-06-03 · 今天 2026-06-02</span></div>
+    <h1>我們知道，<br>還有什麼沒想清楚。</h1>
+    <p class="sub">這頁攤開全部待決事項，標誰負責、預計決議日、目前狀態。隨時間轉綠。最大的不確定性在商業條款設計，不是工程。</p>
+
+    <div class="dash reveal">
+      <div class="dash-top">
+        <div>
+          <div class="big" id="ovr">36<span>% 平均完成度</span></div>
+          <div class="lbl">// 14 項待決 · 商業 B · 戰略 S · 組織 O · 網站 W</div>
+        </div>
+        <div class="legend">
+          <span class="lg"><span class="dot r"></span>紅 · 未啟動 / 卡關 <b id="cr" style="color:var(--red);margin-left:4px">4</b></span>
+          <span class="lg"><span class="dot a"></span>黃 · 進行中 <b id="ca" style="color:var(--amber-deep);margin-left:4px">8</b></span>
+          <span class="lg"><span class="dot g"></span>綠 · 暫定 / 收斂 <b id="cg" style="color:var(--green);margin-left:4px">2</b></span>
+        </div>
+      </div>
+      <div class="pbar"><i class="pg" style="width:14%"></i><i class="pa" style="width:57%"></i><i class="pr" style="width:29%"></i></div>
+      <div class="goal"><span class="dot a"></span>目標：2026 年 6 月底前，商業模式 TBD（B / S / O 線）清掉 7 成轉綠。</div>
+    </div>
+  </header>
+
+  <div class="filters reveal" id="filters">
+    <div class="grp" data-group="cat">
+      <button class="chip active" data-cat="all">全部分類</button>
+      <button class="chip" data-cat="B">商業/財務</button>
+      <button class="chip" data-cat="S">戰略</button>
+      <button class="chip" data-cat="O">組織/法務</button>
+      <button class="chip" data-cat="W">網站/CTA</button>
+    </div>
+    <span class="sep"></span>
+    <div class="grp" data-group="st">
+      <button class="chip active" data-st="all">全部狀態</button>
+      <button class="chip" data-st="r"><span class="dot r" style="display:inline-block;margin-right:5px"></span>紅</button>
+      <button class="chip" data-st="a"><span class="dot a" style="display:inline-block;margin-right:5px"></span>黃</button>
+      <button class="chip" data-st="g"><span class="dot g" style="display:inline-block;margin-right:5px"></span>綠</button>
+    </div>
+  </div>
+
+  <div class="board" id="board">
+
+    <div class="cat" data-cat="B">
+      <div class="cat-head"><span class="id" style="color:var(--green)">B</span><h2>商業 / 財務</h2><span class="rule"></span><span class="count">3 項</span></div>
+      <div class="items">
+        <div class="item" data-cat="B" data-st="a"><div class="item-top"><span class="item-id">B1</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>佣金結算時機</h3><p class="impact"><b>影響</b>首批下訂開 vs 退貨期後開 vs 分兩次開 — 影響認列營收時點、現金流、退佣機制。</p><div class="item-prog"><i class="a" style="width:40%"></i></div><div class="item-foot"><span class="due">目標 07-15</span></div></div>
+        <div class="item" data-cat="B" data-st="r"><div class="item-top"><span class="item-id">B2</span><span class="status r"><span class="dot r"></span>卡關</span></div><h3>退貨損益歸屬</h3><p class="impact"><b>影響</b>品牌承擔？渠道吃？分攤？退貨進倉？退貨率懲罰？三方合約核心條款。</p><div class="item-prog"><i class="r" style="width:15%"></i></div><div class="item-foot"><span class="due">目標 07-15</span></div></div>
+        <div class="item" data-cat="B" data-st="a"><div class="item-top"><span class="item-id">B4</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>同場多品牌結算</h3><p class="impact"><b>影響</b>一場直播跑 5–10 個品牌怎麼歸戶 — 由資料模型決定（見頁3 session↔brand 多對多）。</p><div class="item-prog"><i class="a" style="width:35%"></i></div><div class="item-foot"><span class="due">目標 07-31</span></div></div>
+      </div>
+    </div>
+
+    <div class="cat" data-cat="S">
+      <div class="cat-head"><span class="id" style="color:var(--orange)">S</span><h2>商業戰略</h2><span class="rule"></span><span class="count">3 項</span></div>
+      <div class="items">
+        <div class="item" data-cat="S" data-st="r"><div class="item-top"><span class="item-id">S1</span><span class="status r"><span class="dot r"></span>卡關</span></div><h3>Disintermediation 防護</h3><p class="impact"><b>影響</b>直播主學會後跳過我們直接找品牌 — 影響商業模式 enforceability。</p><div class="item-prog"><i class="r" style="width:20%"></i></div><div class="item-foot"><span class="due">日期 TBD</span></div></div>
+        <div class="item" data-cat="S" data-st="a"><div class="item-top"><span class="item-id">S2</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>差異化定位句</h3><p class="impact"><b>影響</b>對 vs 其他整合商 / MCN 的一句話 — 直接是頁1 / 頁2 的 H1。</p><div class="item-prog"><i class="a" style="width:50%"></i></div><div class="item-foot"><span class="due">目標 06-30</span></div></div>
+        <div class="item" data-cat="S" data-st="r"><div class="item-top"><span class="item-id">S3</span><span class="status r"><span class="dot r"></span>未啟動</span></div><h3>品牌品控 vs 直播主品控</h3><p class="impact"><b>影響</b>分級與否決機制 — 招到中高端品牌的關鍵。</p><div class="item-prog"><i class="r" style="width:15%"></i></div><div class="item-foot"><span class="due">日期 TBD</span></div></div>
+      </div>
+    </div>
+
+    <div class="cat" data-cat="O">
+      <div class="cat-head"><span class="id" style="color:var(--green)">O</span><h2>組織 / 法務</h2><span class="rule"></span><span class="count">5 項</span></div>
+      <div class="items">
+        <div class="item" data-cat="O" data-st="a"><div class="item-top"><span class="item-id">O1</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>9 月開跑第一個月活動</h3><p class="impact"><b>影響</b>具體 MVP scope — 倒推 7–8 月準備內容。</p><div class="item-prog"><i class="a" style="width:30%"></i></div><div class="item-foot"><span class="due">目標 07-15</span></div></div>
+        <div class="item" data-cat="O" data-st="a"><div class="item-top"><span class="item-id">O3</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>攤牌後的法務風險評估</h3><p class="impact"><b>影響</b>競業、商業機密、客戶名單歸屬 — 6 月上旬攤牌後立刻處理。</p><div class="item-prog"><i class="a" style="width:45%"></i></div><div class="item-foot"><span class="due">06 月上旬</span></div></div>
+        <div class="item" data-cat="O" data-st="a"><div class="item-top"><span class="item-id">O4</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>首批品牌名單來源</h3><p class="impact"><b>影響</b>能帶走多少 vs 從零招商 — 影響開跑首季可行性。</p><div class="item-prog"><i class="a" style="width:35%"></i></div><div class="item-foot"><span class="due">目標 07-15</span></div></div>
+        <div class="item" data-cat="O" data-st="r"><div class="item-top"><span class="item-id">O5</span><span class="status r"><span class="dot r"></span>未啟動</span></div><h3>編制缺口</h3><p class="impact"><b>影響</b>會計 / 法務 / 場控 / 行政 — 內部或外包，day-1 編制。</p><div class="item-prog"><i class="r" style="width:10%"></i></div><div class="item-foot"><span class="due">目標 08 月</span></div></div>
+        <div class="item" data-cat="O" data-st="a"><div class="item-top"><span class="item-id">O7</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>攤牌條件設計</h3><p class="impact"><b>影響</b>入股條件要綁人脈線轉介（不只給錢、要給 connection），否則變純投資人沒戰略價值。</p><div class="item-prog"><i class="a" style="width:30%"></i></div><div class="item-foot"><span class="due">06 月上旬</span></div></div>
+      </div>
+    </div>
+
+    <div class="cat" data-cat="W">
+      <div class="cat-head"><span class="id" style="color:var(--orange)">W</span><h2>網站 / CTA</h2><span class="rule"></span><span class="count">3 項</span></div>
+      <div class="items">
+        <div class="item" data-cat="W" data-st="g"><div class="item-top"><span class="item-id">W1</span><span class="status g"><span class="dot g"></span>暫定</span></div><h3>對廠商頁 CTA</h3><p class="impact"><b>影響</b>填表 / 下載 deck / 聯絡 Andy？— demo 暫定「預約 15 分鐘洽談表單」。</p><div class="item-prog"><i class="g" style="width:80%"></i></div><div class="item-foot"><span class="due">demo 已套用</span></div></div>
+        <div class="item" data-cat="W" data-st="g"><div class="item-top"><span class="item-id">W2</span><span class="status g"><span class="dot g"></span>暫定</span></div><h3>對渠道頁 CTA</h3><p class="impact"><b>影響</b>預約諮詢 / 直播檔期表？— demo 暫定「預約諮詢 + 看下次檔期」。</p><div class="item-prog"><i class="g" style="width:80%"></i></div><div class="item-foot"><span class="due">demo 已套用</span></div></div>
+        <div class="item" data-cat="W" data-st="a"><div class="item-top"><span class="item-id">W3</span><span class="status a"><span class="dot a"></span>進行中</span></div><h3>頁 3 / 頁 4 訪問控制</h3><p class="impact"><b>影響</b>password gate / 內網 only / 同網域子路徑 — 內部頁如何上鎖。</p><div class="item-prog"><i class="a" style="width:25%"></i></div><div class="item-foot"><span class="due">目標 07 月</span></div></div>
+      </div>
+    </div>
+
+  </div>
+  <div class="empty" id="empty">// 此條件下沒有項目</div>
+
+  <section id="matrix">
+    <div class="shead reveal"><span class="id">§9</span><h2>技術可行性矩陣</h2><span class="rule"></span></div>
+    <div class="matrix reveal">
+      <div class="mrow"><div class="mt">三大分頁網站（landing）<small>頁1 / 頁2 / 入口</small></div><span class="risk g">🟢 低風險 · 2–3 週</span></div>
+      <div class="mrow"><div class="mt">場地管理（&lt; 100 筆）<small>markdown / Airtable</small></div><span class="risk g">🟢 現成可用</span></div>
+      <div class="mrow"><div class="mt">案型 AI 模仿專家設計<small>需先有零散商品清單</small></div><span class="risk a">🟡 LLM + few-shot</span></div>
+      <div class="mrow"><div class="mt">直播場次狀態管理<small>typical CRUD</small></div><span class="risk g">🟢 Google Cloud</span></div>
+      <div class="mrow"><div class="mt">廠商 / 直播主 / 品牌 CRM<small>HubSpot</small></div><span class="risk g">🟢 現成可用</span></div>
+      <div class="mrow"><div class="mt">直播主分級 + Tag<small>DB 欄位 + Tag table</small></div><span class="risk g">🟢 標準</span></div>
+      <div class="mrow"><div class="mt">含稅 / 未稅<small>標準 B2B pattern</small></div><span class="risk g">🟢 標準</span></div>
+      <div class="mrow"><div class="mt">跨渠道佣金結算<small>雙邊核對流程，連動 B 線</small></div><span class="risk a">🟡 中等</span></div>
+      <div class="mrow"><div class="mt">多幣別 / 跨境支援<small>初期僅諮詢、不接金流</small></div><span class="risk g">🟢 初期 OK</span></div>
+      <div class="mrow"><div class="mt">內部 AI 助理（帳務 / 紀錄 / 決策）<small>拼裝現成工具</small></div><span class="risk g">🟢 現成拼裝</span></div>
+    </div>
+    <div class="matrix-concl reveal"><b>結論：</b>技術可行性整體 🟢–🟡，沒有真正的技術 blocker。最大不確定性在商業條款設計（B 線、O3–O4），不是工程題。</div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>Live MCN · TBD Board v0.1 · INTERNAL ONLY</span>
+    <span><a href="page3.html" style="color:var(--green)">← 系統架構</a> · <a href="../index.html" style="color:var(--green)">回入口</a></span>
+  </div>
+</footer>
+
+<script>
+const filters=document.getElementById('filters');
+let curCat='all',curSt='all';
+filters.addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  const grp=b.parentElement.dataset.group;
+  b.parentElement.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  b.classList.add('active');
+  if(grp==='cat')curCat=b.dataset.cat;else curSt=b.dataset.st;
+  apply();
+});
+function apply(){
+  let shown=0;
+  document.querySelectorAll('.item').forEach(it=>{
+    const ok=(curCat==='all'||it.dataset.cat===curCat)&&(curSt==='all'||it.dataset.st===curSt);
+    it.classList.toggle('hide',!ok);if(ok)shown++;
+  });
+  document.querySelectorAll('.cat').forEach(c=>{
+    const any=c.querySelectorAll('.item:not(.hide)').length;
+    c.style.display=any?'':'none';
+  });
+  document.getElementById('empty').style.display=shown?'none':'block';
+}
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
