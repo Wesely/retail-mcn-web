@@ -30,7 +30,7 @@
   <div class="wrap" role="tablist" aria-label="角色切換">
     <button role="tab" data-view="vendor" aria-selected="true" aria-controls="view-vendor">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
-      <span class="lbl">廠商<span class="role">VENDOR · 6 步</span></span>
+      <span class="lbl">廠商<span class="role">VENDOR · 5 步</span></span>
     </button>
     <button role="tab" data-view="planner" aria-selected="false" aria-controls="view-planner">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span>
@@ -47,15 +47,14 @@
 <section class="view active" id="view-vendor" data-role="vendor" role="tabpanel" aria-label="廠商工作流程">
   <div class="wrap">
     <div class="vhead"><span class="badge vendor">廠商工作流程</span><h2>綠研所 · 把貨進系統到結算</h2></div>
-    <p class="vlead">以品牌方身分,一步步完成:建檔 → 上架報價 → 確認場次 → 出貨 → 對帳 → 看成績。</p>
+    <p class="vlead">以品牌方身分,一步步完成:建檔 → 批次上架報價 → 場次行事曆 → 出貨對帳 → 看成績。</p>
 
     <div class="rail">
       <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">建立品牌檔案</span></button>
       <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">上架商品 + 報價</span></button>
-      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">確認參與場次</span></button>
-      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">出貨登錄</span></button>
-      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">對帳 · 爭議</span></button>
-      <button class="rstep" data-step="5"><span class="num">6</span><span class="rl">看成績</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">場次行事曆</span></button>
+      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">出貨 + 對帳<span class="opt">可刪</span></span></button>
+      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">看成績</span></button>
     </div>
 
     <div class="stage">
@@ -80,77 +79,105 @@
       <!-- V2 -->
       <div class="screen" data-step="1">
         <div class="stitle"><span class="sn">V2</span><h3>上架商品 + 設定報價</h3></div>
-        <p class="sdesc">新增一個要賣的商品,填規格與品類,設定供貨價與建議售價;<b>切換含稅 / 未稅</b>,系統會自動換算另一邊。</p>
+        <p class="sdesc">通常一次要報很多筆。<b>下載範本、填好後直接上傳 XLSX 批次匯入</b>——系統解析成報價表,逐筆確認含稅／未稅後一次送審。</p>
         <div class="card">
-          <div class="form c2">
-            <div class="field"><label>商品名稱</label><div class="inp">益生菌 30 入／盒</div></div>
-            <div class="field"><label>品類 Tag</label><div class="inp">保健 · 益生菌</div></div>
-            <div class="field"><label>供貨價</label><div class="inp mono">$480</div></div>
-            <div class="field"><label>建議售價</label><div class="inp mono">$880</div></div>
+          <a class="barlink" href="#" onclick="return false"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>下載報價範本 .xlsx</a>
+          <div class="drop" style="margin-top:13px"><svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 13h6M9 17h3"/></svg>拖曳填好的 <b>XLSX 報價表</b>到這裡批次匯入（一次 N 筆）</div>
+          <div class="minihead">已匯入報價（5 筆）</div>
+          <div class="tablewrap">
+            <table class="tbl">
+              <thead><tr><th>商品</th><th>規格</th><th>稅基</th><th class="num">供貨</th><th class="num">建議售價</th></tr></thead>
+              <tbody>
+                <tr><td>益生菌</td><td>30 入／盒</td><td><span class="tax in">含稅</span></td><td class="num">480</td><td class="num">880</td></tr>
+                <tr><td>膠原蛋白飲</td><td>14 入／盒</td><td><span class="tax in">含稅</span></td><td class="num">600</td><td class="num">1,050</td></tr>
+                <tr><td>魚油 EPA</td><td>60 粒／瓶</td><td><span class="tax in">含稅</span></td><td class="num">520</td><td class="num">980</td></tr>
+                <tr><td>葉黃素</td><td>30 粒／瓶</td><td><span class="tax ex">未稅</span></td><td class="num">350</td><td class="num">720</td></tr>
+                <tr><td>維他命 C</td><td>100 錠／瓶</td><td><span class="tax in">含稅</span></td><td class="num">180</td><td class="num">390</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="field" style="margin-top:15px"><label>報價基準</label>
-            <div class="seg-ctl"><span class="on">含稅</span><span>未稅</span></div>
-            <span class="hint">// tax_inclusive = true → 系統自動推未稅 $838</span>
-          </div>
-          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>拖曳商品圖到這裡,或點擊上傳</div>
-          <div class="actions"><button type="button" class="btn primary act">送審上架</button><button type="button" class="btn">存草稿</button></div>
+          <p class="note">// 匯入時逐列帶 tax_inclusive flag,系統自動換算另一邊;單列亦可手動微調。</p>
+          <div class="actions"><button type="button" class="btn primary act">送審上架（5 筆）</button><button type="button" class="btn">+ 手動新增單筆</button></div>
         </div>
       </div>
 
       <!-- V3 -->
       <div class="screen" data-step="2">
-        <div class="stitle"><span class="sn">V3</span><h3>確認參與場次</h3></div>
-        <p class="sdesc">企劃把你的商品配進了一場直播。檢視條件,確認是否參與。</p>
+        <div class="stitle"><span class="sn">V3</span><h3>場次行事曆</h3></div>
+        <p class="sdesc">用行事曆看所有「有賣綠研所商品」的直播場次（依權限,只顯示與你有關的）。<b>點一場,看那場我們被播報的商品清單。</b></p>
         <div class="card">
-          <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>場次邀請 · LS-0918</h3><span class="pill teal" style="margin-left:auto">待確認</span></div>
-          <div class="kv">
-            <div class="r"><span class="k">直播主</span><span class="v">Bella</span></div>
-            <div class="r"><span class="k">日期</span><span class="v">2026-09-18 20:00</span></div>
-            <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
-            <div class="r"><span class="k">你的商品</span><span class="v">益生菌 30 入</span></div>
-            <div class="r"><span class="k">套用案型</span><span class="v">買 3 送 1</span></div>
-            <div class="r"><span class="k">供貨條件</span><span class="v">$480 / 含稅</span></div>
+          <div class="cal">
+            <div class="calhead"><b>2026 年 9 月</b><span class="nav">‹ 8 月　10 月 ›</span></div>
+            <div class="dow"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+            <div class="grid7">
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd"><span class="dn">1</span></div>
+              <div class="cd"><span class="dn">2</span></div>
+              <div class="cd"><span class="dn">3</span></div>
+              <div class="cd"><span class="dn">4</span></div>
+              <div class="cd"><span class="dn">5</span><button class="sx" data-sess="LS-0905">LS-0905</button></div>
+              <div class="cd"><span class="dn">6</span></div>
+              <div class="cd"><span class="dn">7</span></div>
+              <div class="cd"><span class="dn">8</span></div>
+              <div class="cd"><span class="dn">9</span></div>
+              <div class="cd"><span class="dn">10</span></div>
+              <div class="cd"><span class="dn">11</span></div>
+              <div class="cd"><span class="dn">12</span></div>
+              <div class="cd"><span class="dn">13</span></div>
+              <div class="cd"><span class="dn">14</span></div>
+              <div class="cd"><span class="dn">15</span></div>
+              <div class="cd"><span class="dn">16</span></div>
+              <div class="cd"><span class="dn">17</span></div>
+              <div class="cd"><span class="dn">18</span><button class="sx" data-sess="LS-0918">LS-0918</button></div>
+              <div class="cd"><span class="dn">19</span></div>
+              <div class="cd"><span class="dn">20</span></div>
+              <div class="cd"><span class="dn">21</span></div>
+              <div class="cd"><span class="dn">22</span></div>
+              <div class="cd"><span class="dn">23</span></div>
+              <div class="cd"><span class="dn">24</span></div>
+              <div class="cd"><span class="dn">25</span></div>
+              <div class="cd"><span class="dn">26</span><button class="sx" data-sess="LS-0926">LS-0926</button></div>
+              <div class="cd"><span class="dn">27</span></div>
+              <div class="cd"><span class="dn">28</span></div>
+              <div class="cd"><span class="dn">29</span></div>
+              <div class="cd"><span class="dn">30</span></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+            </div>
           </div>
-          <div class="actions"><button type="button" class="btn primary act">✓ 接受參與</button><button type="button" class="btn">婉拒</button></div>
+          <div class="sessdetail" id="vendor-sess-detail"></div>
         </div>
       </div>
 
       <!-- V4 -->
       <div class="screen" data-step="3">
-        <div class="stitle"><span class="sn">V4</span><h3>出貨登錄</h3></div>
-        <p class="sdesc">直播確定後,登錄你實際出了多少貨、上傳出貨單,送交我方對帳。</p>
+        <div class="stitle"><span class="sn">V4</span><h3>出貨 + 對帳</h3><span class="opt">可刪</span></div>
+        <p class="sdesc">登錄出貨數,系統與渠道回報比對,不符自動開爭議單。<b>(此步驟可刪)</b>——出貨／對帳也可能改由企劃端統一處理或走外部流程,視商業條款 B5 決定。</p>
         <div class="card">
+          <div class="minihead">① 出貨登錄</div>
           <div class="form c2">
             <div class="field"><label>場次</label><div class="inp ro mono">LS-0918</div></div>
             <div class="field"><label>商品</label><div class="inp ro">益生菌 30 入</div></div>
             <div class="field"><label>出貨數量</label><div class="inp mono">215 盒</div></div>
             <div class="field"><label>出貨日期</label><div class="inp mono">2026-09-17</div></div>
           </div>
-          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6"/></svg>上傳出貨單 / 物流單號</div>
+          <div class="drop" style="margin-top:13px"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6"/></svg>上傳出貨單 / 物流單號</div>
+          <div class="minihead">② 對帳結果</div>
+          <div class="kv">
+            <div class="r"><span class="k">渠道回報售出</span><span class="v">210 盒</span></div>
+            <div class="r"><span class="k">差異</span><span class="v">5 盒</span></div>
+            <div class="r"><span class="k">爭議單 #D-0918-01</span><span class="v"><span class="pill amber">對帳中</span></span></div>
+          </div>
+          <p class="note">// 出貨數 ≠ 渠道回報數 → 系統自動開爭議單;裁決流程屬商業條款 TBD B5。</p>
           <div class="actions"><button type="button" class="btn primary act">送交對帳</button></div>
         </div>
       </div>
 
       <!-- V5 -->
       <div class="screen" data-step="4">
-        <div class="stitle"><span class="sn">V5</span><h3>對帳 · 爭議處理</h3></div>
-        <p class="sdesc">系統比對你的出貨數與渠道回報的售出數。不一致時自動開爭議單,你可上傳佐證等待裁決。</p>
-        <div class="card">
-          <div class="kv">
-            <div class="r"><span class="k">我方出貨</span><span class="v">215 盒</span></div>
-            <div class="r"><span class="k">渠道回報售出</span><span class="v">210 盒</span></div>
-            <div class="r"><span class="k">差異</span><span class="v">5 盒</span></div>
-            <div class="r"><span class="k">爭議單 #D-0918-01</span><span class="v"><span class="pill amber">對帳中</span></span></div>
-          </div>
-          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>上傳佐證（簽收單 / 退貨憑證）</div>
-          <p class="note">// 裁決流程屬商業條款 TBD B5。</p>
-          <div class="actions"><button type="button" class="btn primary act">提交佐證</button></div>
-        </div>
-      </div>
-
-      <!-- V6 -->
-      <div class="screen" data-step="5">
-        <div class="stitle"><span class="sn">V6</span><h3>看成績（流程終點）</h3></div>
+        <div class="stitle"><span class="sn">V5</span><h3>看成績（流程終點）</h3></div>
         <p class="sdesc">對帳結清後,看這個品牌在本場的成績與 AI 場後評分。</p>
         <div class="card">
           <div class="stats">
@@ -400,7 +427,7 @@
         <div class="card">
           <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>場次邀約 · LS-0918</h3><span class="pill teal" style="margin-left:auto">待回覆</span></div>
           <div class="kv">
-            <div class="r"><span class="k">日期時間</span><span class="v">09-18（六）20:00</span></div>
+            <div class="r"><span class="k">日期時間</span><span class="v">09-18（五）20:00</span></div>
             <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
             <div class="r"><span class="k">本場品牌數</span><span class="v">3</span></div>
             <div class="r"><span class="k">預估團隊分潤</span><span class="v" style="color:var(--teal-d)">~$120,000</span></div>
@@ -509,6 +536,25 @@
     v.querySelector('.next').addEventListener('click',function(){go(r,step[r]+1);});
     v.querySelectorAll('.btn.act').forEach(function(b){b.addEventListener('click',function(){go(r,step[r]+1);});});
   });
+
+  // 場次行事曆 → 點場次看該場「綠研所被播報的商品清單」（廠商視角,資料隔離）
+  var vsess={
+    'LS-0905':{d:'09-05（六）',host:'阿哲選物',venue:'三重 C 棚',items:[['魚油 EPA 60粒','買 2 送 1','$980',['green','已結算']]]},
+    'LS-0918':{d:'09-18（五）',host:'Bella',venue:'信義 A 棚',items:[['益生菌 30入','買 3 送 1','$880',['amber','對帳中']]]},
+    'LS-0926':{d:'09-26（六）',host:'團購女王 Kiki',venue:'內湖 B 棚',items:[['膠原蛋白飲 14入','2 入組合','$1,050',['teal','已排程']]]}
+  };
+  function renderSess(id){
+    var box=document.getElementById('vendor-sess-detail');
+    if(!box||!vsess[id])return;
+    var s=vsess[id];
+    var rows=s.items.map(function(it){return '<tr><td>'+it[0]+'</td><td>'+it[1]+'</td><td class="num">'+it[2]+'</td><td><span class="pill '+it[3][0]+'">'+it[3][1]+'</span></td></tr>';}).join('');
+    box.innerHTML='<div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>'+id+' · '+s.d+'</h3><span class="pill teal" style="margin-left:auto">'+s.host+' · '+s.venue+'</span></div>'+
+      '<div class="tablewrap"><table class="tbl"><thead><tr><th>我的商品</th><th>案型</th><th class="num">售價</th><th>狀態</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+      '<p class="note">// 僅顯示綠研所自家被播報的商品（資料隔離,看不到同場其他品牌）。</p>';
+    Array.prototype.slice.call(document.querySelectorAll('#view-vendor .cal .sx')).forEach(function(c){c.classList.toggle('on',c.dataset.sess===id);});
+  }
+  Array.prototype.slice.call(document.querySelectorAll('#view-vendor .cal .sx')).forEach(function(c){c.addEventListener('click',function(){renderSess(c.dataset.sess);});});
+  renderSess('LS-0918');
 
   window.addEventListener('hashchange',function(){showRole((location.hash||'').replace('#',''));});
   showRole((location.hash||'').replace('#',''));
