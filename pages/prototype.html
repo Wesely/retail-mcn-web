@@ -34,7 +34,7 @@
     </button>
     <button role="tab" data-view="planner" aria-selected="false" aria-controls="view-planner">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span>
-      <span class="lbl">我方企劃<span class="role">PLANNER · 8 步</span></span>
+      <span class="lbl">我方企劃<span class="role">PLANNER · 5 步</span></span>
     </button>
     <button role="tab" data-view="host" aria-selected="false" aria-controls="view-host">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3z"/></svg></span>
@@ -203,17 +203,14 @@
 <section class="view" id="view-planner" data-role="planner" role="tabpanel" aria-label="我方企劃工作流程">
   <div class="wrap">
     <div class="vhead"><span class="badge planner">我方企劃工作流程</span><h2>企劃 · 從報價到結算的全流程</h2></div>
-    <p class="vlead">最完整的一條線:收報價 → 配主 → 選品組場 → 案型定價 → 挑空場地排程 → 場控 → 對帳 → 結算分潤。</p>
+    <p class="vlead">最完整的一條線:收報價 → 配主 → 選品＋案型定價 → 排直播（挑場地）→ 對帳＋結算分潤。</p>
 
     <div class="rail">
       <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">報價進件</span></button>
       <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">直播主配對</span></button>
-      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">選品組場</span></button>
-      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">案型 + 定價</span></button>
-      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">挑場地 + 排程</span></button>
-      <button class="rstep" data-step="5"><span class="num">6</span><span class="rl">直播中場控</span></button>
-      <button class="rstep" data-step="6"><span class="num">7</span><span class="rl">對帳 + 歸戶</span></button>
-      <button class="rstep" data-step="7"><span class="num">8</span><span class="rl">結算 + 分潤</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">選品 + 案型定價</span></button>
+      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">排直播 · 場地</span></button>
+      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">對帳 + 結算分潤</span></button>
     </div>
 
     <div class="stage">
@@ -254,34 +251,26 @@
         </div>
       </div>
 
-      <!-- P3 -->
+      <!-- P3 · 選品 + 案型定價（合併） -->
       <div class="screen" data-step="2">
-        <div class="stitle"><span class="sn">P3</span><h3>選品組場</h3></div>
-        <p class="sdesc">開一個新場次草稿,從報價池<b>跨品牌</b>挑商品組成這一場的銷售清單。</p>
+        <div class="stitle"><span class="sn">P3</span><h3>選品組場 + 案型設計／定價</h3></div>
+        <p class="sdesc">選品與案型一起做:從報價池跨品牌挑商品,<b>用案型把選到的商品 combine 成可賣的組合</b>,同時定價（含稅／未稅自動換算）。</p>
         <div class="card">
+          <div class="minihead">① 選品（跨品牌)</div>
           <div class="picklist">
             <div class="pi sel"><span class="ck"></span><div class="pmain"><b>益生菌 30入</b><span>綠研所 · 保健</span></div><span class="pmeta">$880</span></div>
             <div class="pi sel"><span class="ck"></span><div class="pmain"><b>亮采精華液 30ml</b><span>SkinGlow 膚光 · 保養</span></div><span class="pmeta">$1,280</span></div>
             <div class="pi sel"><span class="ck"></span><div class="pmain"><b>擴香組</b><span>HomeWarm 暖窩 · 家居</span></div><span class="pmeta">$1,200</span></div>
             <div class="pi"><span class="ck"></span><div class="pmain"><b>膠原蛋白飲</b><span>綠研所 · 保健</span></div><span class="pmeta">$1,050</span></div>
           </div>
-          <p class="note">// 已選 3 件 / 3 品牌 → 一場多品牌（歸戶見 TBD B4）。</p>
-          <div class="actions"><button type="button" class="btn primary act">加入場次草稿（3 件）</button></div>
-        </div>
-      </div>
-
-      <!-- P4 -->
-      <div class="screen" data-step="3">
-        <div class="stitle"><span class="sn">P4</span><h3>案型設計 + 定價</h3></div>
-        <p class="sdesc">為每個選品套用案型(AI 可生成),設定價;<b>含稅 / 未稅自動換算</b>確保結算一致。</p>
-        <div class="card">
+          <div class="minihead">② 案型設計 + 定價（把選到的商品組起來賣)</div>
           <div class="tablewrap">
             <table class="tbl">
-              <thead><tr><th>商品 · 案型</th><th>稅基</th><th class="num">未稅</th><th class="num">含稅</th></tr></thead>
+              <thead><tr><th>選中商品 · 案型（combine 方式)</th><th>稅基</th><th class="num">未稅</th><th class="num">含稅</th></tr></thead>
               <tbody>
-                <tr><td>益生菌 · 買3送1</td><td><span class="tax in">含稅</span></td><td class="num">2,514</td><td class="num">2,640</td></tr>
-                <tr><td>精華液 · 2入組合</td><td><span class="tax ex">未稅</span></td><td class="num">1,580</td><td class="num">1,659</td></tr>
-                <tr><td>擴香組 · 滿額禮</td><td><span class="tax in">含稅</span></td><td class="num">1,143</td><td class="num">1,200</td></tr>
+                <tr><td>益生菌 ×4 · 買 3 送 1</td><td><span class="tax in">含稅</span></td><td class="num">2,514</td><td class="num">2,640</td></tr>
+                <tr><td>精華液 ×2 · 2 入組合</td><td><span class="tax ex">未稅</span></td><td class="num">1,580</td><td class="num">1,659</td></tr>
+                <tr><td>全場 · 滿 $1,000 送香氛袋（暖窩)</td><td><span class="tax in">含稅</span></td><td class="num">—</td><td class="num">贈品</td></tr>
               </tbody>
             </table>
           </div>
@@ -289,78 +278,76 @@
             <span class="aic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
             <div><b>AI 案型建議</b><p>益生菌「買3送1」放壓軸主推復購;精華液組合綁滿額禮提客單。預估客單 +18%。</p></div>
           </div>
-          <div class="actions"><button type="button" class="btn primary act">確認案型與定價</button></div>
+          <div class="actions"><button type="button" class="btn primary act">確認選品與案型（加入直播草稿)</button></div>
         </div>
       </div>
 
-      <!-- P5 -->
-      <div class="screen" data-step="4">
-        <div class="stitle"><span class="sn">P5</span><h3>挑選空場地 + 排程</h3></div>
-        <p class="sdesc">查場地庫在目標日的可用狀態,挑一個空的場地,排入日期時間,場次狀態轉「已排程」。</p>
+      <!-- P4 · 排直播 · 場地（直播行事曆 + 場地可用性） -->
+      <div class="screen" data-step="3">
+        <div class="stitle"><span class="sn">P4</span><h3>排直播 · 場地</h3></div>
+        <p class="sdesc">行事曆列出所有已排程的直播。<b>場地是直播的一個欄位</b>——排這場時點目標日,只列出當天<b>尚可預約</b>的場地（已被其他直播占用的不可選）。</p>
         <div class="card">
-          <div class="field" style="margin-bottom:12px"><label>目標日期</label><div class="seg-ctl"><span class="on">2026-09-18</span></div></div>
-          <div class="venues">
-            <div class="venue pick"><div class="vinfo"><b>信義 A 棚</b><span>容納 30 · 有打光</span></div><span class="avail free">9/18 可用 ✓</span></div>
-            <div class="venue"><div class="vinfo"><b>內湖 B 棚</b><span>容納 50 · 大型</span></div><span class="avail busy">9/18 已被占</span></div>
-            <div class="venue"><div class="vinfo"><b>三重 C 棚</b><span>容納 20 · 簡約</span></div><span class="avail free">9/18 可用</span></div>
+          <div class="minihead">① 直播行事曆（列出所有已排程直播;點日期挑檔期)</div>
+          <div class="cal">
+            <div class="calhead"><b>2026 年 9 月</b><span class="nav">‹ 8 月　10 月 ›</span></div>
+            <div class="dow"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+            <div class="grid7">
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd" data-day="1"><span class="dn">1</span></div>
+              <div class="cd" data-day="2"><span class="dn">2</span></div>
+              <div class="cd" data-day="3"><span class="dn">3</span></div>
+              <div class="cd" data-day="4"><span class="dn">4</span></div>
+              <div class="cd" data-day="5"><span class="dn">5</span><span class="bk">LS-0905</span></div>
+              <div class="cd" data-day="6"><span class="dn">6</span></div>
+              <div class="cd" data-day="7"><span class="dn">7</span></div>
+              <div class="cd" data-day="8"><span class="dn">8</span></div>
+              <div class="cd" data-day="9"><span class="dn">9</span></div>
+              <div class="cd" data-day="10"><span class="dn">10</span></div>
+              <div class="cd" data-day="11"><span class="dn">11</span></div>
+              <div class="cd" data-day="12"><span class="dn">12</span><span class="bk">LS-0912</span></div>
+              <div class="cd" data-day="13"><span class="dn">13</span></div>
+              <div class="cd" data-day="14"><span class="dn">14</span></div>
+              <div class="cd" data-day="15"><span class="dn">15</span></div>
+              <div class="cd" data-day="16"><span class="dn">16</span></div>
+              <div class="cd" data-day="17"><span class="dn">17</span></div>
+              <div class="cd" data-day="18"><span class="dn">18</span><span class="bk">LS-0918N</span></div>
+              <div class="cd" data-day="19"><span class="dn">19</span></div>
+              <div class="cd" data-day="20"><span class="dn">20</span></div>
+              <div class="cd" data-day="21"><span class="dn">21</span></div>
+              <div class="cd" data-day="22"><span class="dn">22</span></div>
+              <div class="cd" data-day="23"><span class="dn">23</span></div>
+              <div class="cd" data-day="24"><span class="dn">24</span></div>
+              <div class="cd" data-day="25"><span class="dn">25</span></div>
+              <div class="cd" data-day="26"><span class="dn">26</span><span class="bk">LS-0926</span></div>
+              <div class="cd" data-day="27"><span class="dn">27</span></div>
+              <div class="cd" data-day="28"><span class="dn">28</span></div>
+              <div class="cd" data-day="29"><span class="dn">29</span></div>
+              <div class="cd" data-day="30"><span class="dn">30</span></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+            </div>
           </div>
+          <div id="planner-avail"></div>
           <div class="form c2" style="margin-top:15px">
-            <div class="field"><label>已選場地</label><div class="inp">信義 A 棚</div></div>
-            <div class="field"><label>開播時間</label><div class="inp mono">2026-09-18 20:00</div></div>
+            <div class="field"><label>已選場地（這場 LS-0918)</label><div class="inp" id="planner-venue">信義 A 棚</div></div>
+            <div class="field"><label>開播時間</label><div class="inp mono" id="planner-time">2026-09-18 20:00</div></div>
           </div>
-          <div class="actions"><button type="button" class="btn primary act">排入排程 → 已排程</button></div>
+          <div class="actions"><button type="button" class="btn primary act">排定直播 → 已排程</button></div>
         </div>
       </div>
 
-      <!-- P6 -->
-      <div class="screen" data-step="5">
-        <div class="stitle"><span class="sn">P6</span><h3>直播中場控</h3></div>
-        <p class="sdesc">開播當天把場次切「直播中」,看即時數據,結束後標記進入對帳。</p>
+      <!-- P5 · 對帳 + 結算分潤（合併） -->
+      <div class="screen" data-step="4">
+        <div class="stitle"><span class="sn">P5</span><h3>對帳 + 結算分潤（流程終點）</h3></div>
+        <p class="sdesc">對帳維度是「廠商 × 場次」——可切換從<b>場次 / 廠商 / 爭議</b>三個面向看款項與爭議（每列都帶場次名稱）;確認後結算、算分潤。</p>
         <div class="card">
-          <div class="liveband" style="margin-bottom:16px"><span class="blip"></span>LS-0918 直播中 · 信義 A 棚</div>
-          <div class="stepper">
-            <span class="st done"><span class="dot"></span>草稿</span><span class="arr fill"></span>
-            <span class="st done"><span class="dot"></span>已排程</span><span class="arr fill"></span>
-            <span class="st now"><span class="dot"></span>直播中</span><span class="arr"></span>
-            <span class="st"><span class="dot"></span>對帳中</span><span class="arr"></span>
-            <span class="st"><span class="dot"></span>已結算</span>
-          </div>
-          <div class="stats" style="margin-top:18px">
-            <div class="tile"><div class="tl">即時 GMV</div><div class="tv">$214,300</div></div>
-            <div class="tile"><div class="tl">在線峰值</div><div class="tv">3,820</div></div>
-            <div class="tile"><div class="tl">已售件數</div><div class="tv">486</div></div>
-            <div class="tile"><div class="tl">當前主打</div><div class="tv" style="font-size:14px">益生菌</div></div>
-          </div>
-          <div class="actions"><button type="button" class="btn primary act">標記直播結束 → 對帳中</button></div>
-        </div>
-      </div>
-
-      <!-- P7 -->
-      <div class="screen" data-step="6">
-        <div class="stitle"><span class="sn">P7</span><h3>場後對帳 + 多品牌分開歸戶</h3></div>
-        <p class="sdesc">收品牌與渠道雙邊回報,逐品牌歸戶比對;出貨 ≠ 回報時開爭議單。</p>
-        <div class="card">
-          <div class="tablewrap">
-            <table class="tbl">
-              <thead><tr><th>品牌</th><th class="num">出貨</th><th class="num">回報</th><th class="num">差異</th><th>狀態</th></tr></thead>
-              <tbody>
-                <tr><td>綠研所</td><td class="num">215</td><td class="num">210</td><td class="num">5</td><td><span class="pill amber">爭議 #D-0918-01</span></td></tr>
-                <tr><td>SkinGlow 膚光</td><td class="num">74</td><td class="num">74</td><td class="num">0</td><td><span class="pill green">一致</span></td></tr>
-                <tr><td>HomeWarm 暖窩</td><td class="num">50</td><td class="num">50</td><td class="num">0</td><td><span class="pill green">一致</span></td></tr>
-              </tbody>
-            </table>
-          </div>
-          <p class="note">// 歸戶粒度 = 場次 × 品牌（B4）。爭議裁決 TBD B5,結清後才可結算。</p>
-          <div class="actions"><button type="button" class="btn primary act">完成對帳</button></div>
-        </div>
-      </div>
-
-      <!-- P8 -->
-      <div class="screen" data-step="7">
-        <div class="stitle"><span class="sn">P8</span><h3>結算 + 分潤 + 報表（流程終點）</h3></div>
-        <p class="sdesc">選結算時機開佣金,算我方佣金與各方分潤(Agent / Net),產出報表。</p>
-        <div class="card">
-          <div class="field" style="margin-bottom:14px"><label>結算時機（B1）</label>
+          <div class="minihead">① 對帳（同一批款項,三個面向切換看)</div>
+          <div class="seg-ctl recon-tabs" style="margin-bottom:13px"><span data-rv="session" class="on">依場次</span><span data-rv="vendor">依廠商</span><span data-rv="dispute">依爭議</span></div>
+          <div id="planner-recon"></div>
+          <div class="minihead">② 結算 + 分潤（本場 LS-0918)</div>
+          <div class="field" style="margin-bottom:13px"><label>結算時機（B1)</label>
             <div class="seg-ctl"><span class="on">退貨期後開</span><span>首批下訂開</span><span>分兩次</span></div>
           </div>
           <div class="tablewrap">
@@ -555,6 +542,51 @@
   }
   Array.prototype.slice.call(document.querySelectorAll('#view-vendor .cal .sx')).forEach(function(c){c.addEventListener('click',function(){renderSess(c.dataset.sess);});});
   renderSess('LS-0918');
+
+  // 企劃 P4：直播行事曆 → 點日期看當天「尚可預約」的場地（場地＝直播的欄位,避開已被其他直播預約者）
+  var pVenues=[['信義 A 棚','容納 30 · 有打光'],['內湖 B 棚','容納 50 · 大型'],['三重 C 棚','容納 20 · 簡約']];
+  var pBook={5:[['LS-0905','信義 A 棚','20:00']],12:[['LS-0912','內湖 B 棚','20:00']],18:[['LS-0918N','內湖 B 棚','18:00']],26:[['LS-0926','三重 C 棚','20:00']]};
+  function renderAvail(day){
+    var box=document.getElementById('planner-avail'); if(!box)return;
+    var booked=pBook[day]||[],firstFree=null;
+    var rows=pVenues.map(function(v){
+      var b=booked.filter(function(x){return x[1]===v[0];})[0];
+      if(b)return '<div class="venue"><div class="vinfo"><b>'+v[0]+'</b><span>'+v[1]+'</span></div><span class="avail busy">已被 '+b[0]+' 預約 · '+b[2]+'</span></div>';
+      var pick=!firstFree; if(pick)firstFree=v[0];
+      return '<div class="venue'+(pick?' pick':'')+'"><div class="vinfo"><b>'+v[0]+'</b><span>'+v[1]+'</span></div><span class="avail free">可預約'+(pick?' ✓':'')+'</span></div>';
+    }).join('');
+    var ds='2026-09-'+(day<10?'0'+day:day);
+    box.innerHTML='<div class="minihead">② 為 LS-0918 挑場地 · 目標日 '+ds+'</div><div class="venues">'+rows+'</div><p class="note">// 只列出當天尚可預約的場地;已被其他直播占用的不可選（場地＝直播的一個欄位,同場地同時段不重複)。</p>';
+    var pv=document.getElementById('planner-venue'); if(pv)pv.textContent=firstFree||'（當日無可用場地)';
+    var pt=document.getElementById('planner-time'); if(pt)pt.textContent=ds+' 20:00';
+    Array.prototype.slice.call(document.querySelectorAll('#view-planner .cal .cd[data-day]')).forEach(function(c){c.classList.toggle('sel',c.dataset.day===String(day));});
+  }
+  Array.prototype.slice.call(document.querySelectorAll('#view-planner .cal .cd[data-day]')).forEach(function(c){c.addEventListener('click',function(){renderAvail(parseInt(c.dataset.day,10));});});
+  renderAvail(18);
+
+  // 企劃 P5：對帳多面向（場次 / 廠商 / 爭議），維度＝廠商 × 場次
+  var reconViews={
+    session:'<table class="tbl"><thead><tr><th>場次</th><th>主播</th><th class="num">品牌數</th><th class="num">淨 GMV</th><th class="num">爭議</th><th>狀態</th></tr></thead><tbody>'+
+      '<tr><td>LS-0918</td><td>Bella</td><td class="num">3</td><td class="num">318,000</td><td class="num">1</td><td><span class="pill amber">對帳中</span></td></tr>'+
+      '<tr><td>LS-0905</td><td>阿哲選物</td><td class="num">2</td><td class="num">142,000</td><td class="num">0</td><td><span class="pill green">已結算</span></td></tr>'+
+      '<tr><td>LS-0926</td><td>團購女王 Kiki</td><td class="num">4</td><td class="num">401,000</td><td class="num">0</td><td><span class="pill teal">已排程</span></td></tr>'+
+      '</tbody></table>',
+    vendor:'<table class="tbl"><thead><tr><th>廠商</th><th class="num">場次數</th><th class="num">累計淨 GMV</th><th>爭議</th><th class="num">待結款</th></tr></thead><tbody>'+
+      '<tr><td>綠研所</td><td class="num">3</td><td class="num">408,000</td><td><span class="pill amber">#D-0918-01</span></td><td class="num">168,000</td></tr>'+
+      '<tr><td>SkinGlow 膚光</td><td class="num">1</td><td class="num">90,000</td><td>—</td><td class="num">90,000</td></tr>'+
+      '<tr><td>HomeWarm 暖窩</td><td class="num">2</td><td class="num">120,000</td><td>—</td><td class="num">60,000</td></tr>'+
+      '</tbody></table>',
+    dispute:'<table class="tbl"><thead><tr><th>爭議單</th><th>場次</th><th>廠商</th><th class="num">差異</th><th>狀態</th></tr></thead><tbody>'+
+      '<tr><td>#D-0918-01</td><td>LS-0918</td><td>綠研所</td><td class="num">5 盒</td><td><span class="pill amber">對帳中</span></td></tr>'+
+      '</tbody></table>'
+  };
+  function renderRecon(view){
+    var box=document.getElementById('planner-recon'); if(!box)return;
+    box.innerHTML='<div class="tablewrap">'+(reconViews[view]||reconViews.session)+'</div>';
+    Array.prototype.slice.call(document.querySelectorAll('#view-planner .recon-tabs span')).forEach(function(s){s.classList.toggle('on',s.dataset.rv===view);});
+  }
+  Array.prototype.slice.call(document.querySelectorAll('#view-planner .recon-tabs span')).forEach(function(s){s.addEventListener('click',function(){renderRecon(s.dataset.rv);});});
+  renderRecon('session');
 
   window.addEventListener('hashchange',function(){showRole((location.hash||'').replace('#',''));});
   showRole((location.hash||'').replace('#',''));
