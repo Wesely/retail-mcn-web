@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>互動原型 · 三視角（內部）— Live MCN</title>
+<title>互動原型 · 三角色工作流程（內部）— Live MCN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -11,270 +11,448 @@
 </head>
 <body>
 
-<div class="ibar"><div class="wrap"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>內部原型</b> · 寫死假資料 · 同一檔次 <b class="mono">LS-0918</b> 的三個角色視角 · 對應 <span class="mono">proto/user-story.md</span></span></div></div>
+<div class="ibar"><div class="wrap"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>內部原型</b> · 三角色工作流程 · 走一遍各自在系統裡「做的事」 · 對應 <span class="mono">proto/workflows.md</span></span></div></div>
 
-<!-- app top bar -->
 <div class="appbar">
   <div class="wrap">
-    <a class="top" href="../index.html"><span class="m"></span><span class="ttl">Live MCN<span>OPERATIONS · PROTOTYPE</span></span></a>
+    <a class="top" href="../index.html"><span class="m"></span><span class="ttl">Live MCN<span>OPERATIONS · WORKFLOWS</span></span></a>
     <span class="spacer"></span>
     <div class="ctx">
-      <span><b>LS-0918</b></span>
+      <span>串接場景 <b>LS-0918</b></span>
       <span>信義 A 棚</span>
-      <span>2026-09-18 20:00</span>
-      <span>直播主 <b>Bella</b></span>
-      <span><b>3</b> 品牌同場</span>
+      <span>2026-09-18</span>
+      <span>Bella × <b>3</b> 品牌</span>
     </div>
   </div>
 </div>
 
-<!-- view switcher -->
 <nav class="switch">
-  <div class="wrap" role="tablist" aria-label="視角切換">
+  <div class="wrap" role="tablist" aria-label="角色切換">
     <button role="tab" data-view="vendor" aria-selected="true" aria-controls="view-vendor">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span>
-      <span class="lbl">廠商<span class="role">VENDOR · 綠研所</span></span>
+      <span class="lbl">廠商<span class="role">VENDOR · 6 步</span></span>
     </button>
     <button role="tab" data-view="planner" aria-selected="false" aria-controls="view-planner">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span>
-      <span class="lbl">我方企劃<span class="role">PLANNER · 工作台</span></span>
+      <span class="lbl">我方企劃<span class="role">PLANNER · 8 步</span></span>
     </button>
     <button role="tab" data-view="host" aria-selected="false" aria-controls="view-host">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3z"/></svg></span>
-      <span class="lbl">直播主<span class="role">HOST · Bella</span></span>
+      <span class="lbl">直播主<span class="role">HOST · 5 步</span></span>
     </button>
   </div>
 </nav>
 
-<!-- ============ VIEW A · 廠商 ============ -->
-<section class="view active" id="view-vendor" role="tabpanel" aria-label="廠商視角">
+<!-- ===================== 廠商 ===================== -->
+<section class="view active" id="view-vendor" data-role="vendor" role="tabpanel" aria-label="廠商工作流程">
   <div class="wrap">
-    <div class="vhead"><span class="badge vendor">廠商視角</span><h2>綠研所 · 品牌工作台</h2></div>
-    <p class="vlead">以品牌方身分登入。只看得到自己的商品、被排進哪一場、以及場後成績——其他品牌的數字、我方抽成、直播主分級一律隔離。</p>
+    <div class="vhead"><span class="badge vendor">廠商工作流程</span><h2>綠研所 · 把貨進系統到結算</h2></div>
+    <p class="vlead">以品牌方身分,一步步完成:建檔 → 上架報價 → 確認場次 → 出貨 → 對帳 → 看成績。</p>
 
-    <div class="grid c2">
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></span><h3>我提交的商品與報價</h3></div>
-        <div class="kv">
-          <div class="r"><span class="k">商品</span><span class="v">益生菌 30入／盒</span></div>
-          <div class="r"><span class="k">報價基準</span><span class="v">含稅</span></div>
-          <div class="r"><span class="k">供貨價</span><span class="v">$480</span></div>
-          <div class="r"><span class="k">建議售價</span><span class="v">$880</span></div>
-          <div class="r"><span class="k">品類 Tag</span><span class="v">保健 · 益生菌</span></div>
+    <div class="rail">
+      <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">建立品牌檔案</span></button>
+      <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">上架商品 + 報價</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">確認參與場次</span></button>
+      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">出貨登錄</span></button>
+      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">對帳 · 爭議</span></button>
+      <button class="rstep" data-step="5"><span class="num">6</span><span class="rl">看成績</span></button>
+    </div>
+
+    <div class="stage">
+      <!-- V1 -->
+      <div class="screen active" data-step="0">
+        <div class="stitle"><span class="sn">V1</span><h3>建立品牌檔案</h3></div>
+        <p class="sdesc">第一次合作,先把品牌基本資料建進系統;之後上架的商品都掛在這個品牌下。</p>
+        <div class="card">
+          <div class="form c2">
+            <div class="field"><label>公司 / 品牌名稱</label><div class="inp">綠研所</div></div>
+            <div class="field"><label>統一編號</label><div class="inp mono">53●●●●12</div></div>
+            <div class="field"><label>聯絡人</label><div class="inp">陳小姐</div></div>
+            <div class="field"><label>聯絡 Email</label><div class="inp empty">contact@greenlab.example</div></div>
+          </div>
+          <div class="field" style="margin-top:15px"><label>主要品類（可複選）</label>
+            <div class="tagpick"><span class="tp on">保健</span><span class="tp">食品</span><span class="tp">美妝</span><span class="tp">家居</span></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">建立品牌檔案</button></div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>配對結果</h3><span class="pill teal" style="margin-left:auto">已排程</span></div>
-        <div class="kv">
-          <div class="r"><span class="k">檔次</span><span class="v">LS-0918</span></div>
-          <div class="r"><span class="k">直播主</span><span class="v">Bella</span></div>
-          <div class="r"><span class="k">日期</span><span class="v">2026-09-18 20:00</span></div>
-          <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
-          <div class="r"><span class="k">套用案型</span><span class="v">買 3 送 1</span></div>
+      <!-- V2 -->
+      <div class="screen" data-step="1">
+        <div class="stitle"><span class="sn">V2</span><h3>上架商品 + 設定報價</h3></div>
+        <p class="sdesc">新增一個要賣的商品,填規格與品類,設定供貨價與建議售價;<b>切換含稅 / 未稅</b>,系統會自動換算另一邊。</p>
+        <div class="card">
+          <div class="form c2">
+            <div class="field"><label>商品名稱</label><div class="inp">益生菌 30 入／盒</div></div>
+            <div class="field"><label>品類 Tag</label><div class="inp">保健 · 益生菌</div></div>
+            <div class="field"><label>供貨價</label><div class="inp mono">$480</div></div>
+            <div class="field"><label>建議售價</label><div class="inp mono">$880</div></div>
+          </div>
+          <div class="field" style="margin-top:15px"><label>報價基準</label>
+            <div class="seg-ctl"><span class="on">含稅</span><span>未稅</span></div>
+            <span class="hint">// tax_inclusive = true → 系統自動推未稅 $838</span>
+          </div>
+          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>拖曳商品圖到這裡,或點擊上傳</div>
+          <div class="actions"><button type="button" class="btn primary act">送審上架</button><button type="button" class="btn">存草稿</button></div>
         </div>
       </div>
 
-      <div class="card span2">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span><h3>出貨對帳</h3><span class="tbd">TBD B5 · 爭議裁決</span></div>
-        <div class="kv">
-          <div class="r"><span class="k">我方出貨</span><span class="v">215 盒</span></div>
-          <div class="r"><span class="k">渠道回報售出</span><span class="v">210 盒</span></div>
-          <div class="r"><span class="k">差異</span><span class="v">5 盒</span></div>
-          <div class="r"><span class="k">爭議單 #D-0918-01</span><span class="v"><span class="pill amber">對帳中</span></span></div>
+      <!-- V3 -->
+      <div class="screen" data-step="2">
+        <div class="stitle"><span class="sn">V3</span><h3>確認參與場次</h3></div>
+        <p class="sdesc">企劃把你的商品配進了一場直播。檢視條件,確認是否參與。</p>
+        <div class="card">
+          <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>場次邀請 · LS-0918</h3><span class="pill teal" style="margin-left:auto">待確認</span></div>
+          <div class="kv">
+            <div class="r"><span class="k">直播主</span><span class="v">Bella</span></div>
+            <div class="r"><span class="k">日期</span><span class="v">2026-09-18 20:00</span></div>
+            <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
+            <div class="r"><span class="k">你的商品</span><span class="v">益生菌 30 入</span></div>
+            <div class="r"><span class="k">套用案型</span><span class="v">買 3 送 1</span></div>
+            <div class="r"><span class="k">供貨條件</span><span class="v">$480 / 含稅</span></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">✓ 接受參與</button><button type="button" class="btn">婉拒</button></div>
         </div>
-        <p class="note">// 出貨數 ≠ 渠道回報數 → 系統自動開「爭議單」，裁決流程屬商業條款 TBD B5。</p>
       </div>
 
-      <div class="card span2">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M7 14l4-4 3 3 5-6"/></svg></span><h3>場後成績（綠研所）</h3></div>
-        <div class="stats">
-          <div class="tile"><div class="tl">GMV</div><div class="tv">$180,000</div></div>
-          <div class="tile"><div class="tl">退貨</div><div class="tv">$12,000</div></div>
-          <div class="tile"><div class="tl">退貨率</div><div class="tv">6.7<small>%</small></div></div>
-          <div class="tile accent"><div class="tl">淨 GMV</div><div class="tv">$168,000</div></div>
+      <!-- V4 -->
+      <div class="screen" data-step="3">
+        <div class="stitle"><span class="sn">V4</span><h3>出貨登錄</h3></div>
+        <p class="sdesc">直播確定後,登錄你實際出了多少貨、上傳出貨單,送交我方對帳。</p>
+        <div class="card">
+          <div class="form c2">
+            <div class="field"><label>場次</label><div class="inp ro mono">LS-0918</div></div>
+            <div class="field"><label>商品</label><div class="inp ro">益生菌 30 入</div></div>
+            <div class="field"><label>出貨數量</label><div class="inp mono">215 盒</div></div>
+            <div class="field"><label>出貨日期</label><div class="inp mono">2026-09-17</div></div>
+          </div>
+          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6"/></svg>上傳出貨單 / 物流單號</div>
+          <div class="actions"><button type="button" class="btn primary act">送交對帳</button></div>
         </div>
-        <div class="ai" style="margin-top:16px">
-          <span class="aic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
-          <div><b>AI 場後綜合評分</b><p>商品討論度高、轉換穩定；退貨率略高於品類均值，建議下次強化「保存方式 / 適用對象」話術，並隨貨附衛教卡。</p></div>
+      </div>
+
+      <!-- V5 -->
+      <div class="screen" data-step="4">
+        <div class="stitle"><span class="sn">V5</span><h3>對帳 · 爭議處理</h3></div>
+        <p class="sdesc">系統比對你的出貨數與渠道回報的售出數。不一致時自動開爭議單,你可上傳佐證等待裁決。</p>
+        <div class="card">
+          <div class="kv">
+            <div class="r"><span class="k">我方出貨</span><span class="v">215 盒</span></div>
+            <div class="r"><span class="k">渠道回報售出</span><span class="v">210 盒</span></div>
+            <div class="r"><span class="k">差異</span><span class="v">5 盒</span></div>
+            <div class="r"><span class="k">爭議單 #D-0918-01</span><span class="v"><span class="pill amber">對帳中</span></span></div>
+          </div>
+          <div class="drop" style="margin-top:15px"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>上傳佐證（簽收單 / 退貨憑證）</div>
+          <p class="note">// 裁決流程屬商業條款 TBD B5。</p>
+          <div class="actions"><button type="button" class="btn primary act">提交佐證</button></div>
+        </div>
+      </div>
+
+      <!-- V6 -->
+      <div class="screen" data-step="5">
+        <div class="stitle"><span class="sn">V6</span><h3>看成績（流程終點）</h3></div>
+        <p class="sdesc">對帳結清後,看這個品牌在本場的成績與 AI 場後評分。</p>
+        <div class="card">
+          <div class="stats">
+            <div class="tile"><div class="tl">GMV</div><div class="tv">$180,000</div></div>
+            <div class="tile"><div class="tl">退貨</div><div class="tv">$12,000</div></div>
+            <div class="tile"><div class="tl">退貨率</div><div class="tv">6.7<small>%</small></div></div>
+            <div class="tile accent"><div class="tl">淨 GMV</div><div class="tv">$168,000</div></div>
+          </div>
+          <div class="ai" style="margin-top:16px">
+            <span class="aic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
+            <div><b>AI 場後綜合評分</b><p>商品討論度高、轉換穩定;退貨率略高於品類均值,建議下次強化「保存方式 / 適用對象」話術。</p></div>
+          </div>
+          <div class="iso" style="margin-top:16px"><span class="il">資料隔離</span><p>本流程<b>看不到</b>:同場其他品牌的數字、我方 take rate、直播主分級。</p></div>
         </div>
       </div>
     </div>
 
-    <div class="iso"><span class="il">資料隔離</span><p>本視角<b>看不到</b>：同場其他品牌（膚光 / 暖窩）的數字、我方 take rate、直播主內部分級。品牌只看自己的切片。</p></div>
+    <div class="navbtns"><button type="button" class="btn prev">‹ 上一步</button><span class="count"></span><button type="button" class="btn primary next">下一步 ›</button></div>
   </div>
 </section>
 
-<!-- ============ VIEW B · 我方企劃 ============ -->
-<section class="view" id="view-planner" role="tabpanel" aria-label="我方企劃視角">
+<!-- ===================== 我方企劃 ===================== -->
+<section class="view" id="view-planner" data-role="planner" role="tabpanel" aria-label="我方企劃工作流程">
   <div class="wrap">
-    <div class="vhead"><span class="badge planner">我方企劃視角</span><h2>企劃工作台 · LS-0918</h2></div>
-    <p class="vlead">最完整的視角。從多品牌報價池配對 Bella、設計案型與定價、排場地排程，到場後多品牌分開歸戶、對帳、結算與分潤——全部在這裡收斂。</p>
+    <div class="vhead"><span class="badge planner">我方企劃工作流程</span><h2>企劃 · 從報價到結算的全流程</h2></div>
+    <p class="vlead">最完整的一條線:收報價 → 配主 → 選品組場 → 案型定價 → 挑空場地排程 → 場控 → 對帳 → 結算分潤。</p>
 
-    <div class="card span2" style="margin-bottom:16px">
-      <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4 12 14.01l-3-3"/></svg></span><h3>場次狀態機</h3><span class="pill amber" style="margin-left:auto">目前：對帳中</span></div>
-      <div class="stepper">
-        <span class="st done"><span class="dot"></span>草稿</span><span class="arr fill"></span>
-        <span class="st done"><span class="dot"></span>已排程</span><span class="arr fill"></span>
-        <span class="st done"><span class="dot"></span>直播中</span><span class="arr fill"></span>
-        <span class="st now"><span class="dot"></span>對帳中</span><span class="arr"></span>
-        <span class="st"><span class="dot"></span>已結算</span>
+    <div class="rail">
+      <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">報價進件</span></button>
+      <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">直播主配對</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">選品組場</span></button>
+      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">案型 + 定價</span></button>
+      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">挑場地 + 排程</span></button>
+      <button class="rstep" data-step="5"><span class="num">6</span><span class="rl">直播中場控</span></button>
+      <button class="rstep" data-step="6"><span class="num">7</span><span class="rl">對帳 + 歸戶</span></button>
+      <button class="rstep" data-step="7"><span class="num">8</span><span class="rl">結算 + 分潤</span></button>
+    </div>
+
+    <div class="stage">
+      <!-- P1 -->
+      <div class="screen active" data-step="0">
+        <div class="stitle"><span class="sn">P1</span><h3>品牌報價進件管理</h3></div>
+        <p class="sdesc">審核廠商送進來的報價,補打 Tag,核准入品牌庫 / 商品庫。</p>
+        <div class="card">
+          <div class="tablewrap">
+            <table class="tbl">
+              <thead><tr><th>品牌</th><th>商品</th><th>稅基</th><th class="num">供貨</th><th>狀態</th></tr></thead>
+              <tbody>
+                <tr><td>綠研所</td><td>益生菌 30入</td><td><span class="tax in">含稅</span></td><td class="num">480</td><td><span class="pill green">已核准</span></td></tr>
+                <tr><td>SkinGlow 膚光</td><td>亮采精華液</td><td><span class="tax ex">未稅</span></td><td class="num">620</td><td><span class="pill green">已核准</span></td></tr>
+                <tr><td>HomeWarm 暖窩</td><td>擴香組</td><td><span class="tax in">含稅</span></td><td class="num">700</td><td><span class="pill amber">待審</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">核准暖窩入庫</button></div>
+        </div>
+      </div>
+
+      <!-- P2 -->
+      <div class="screen" data-step="1">
+        <div class="stitle"><span class="sn">P2</span><h3>直播主配對</h3></div>
+        <p class="sdesc">用 Tag 篩選直播主,看 AI 適配建議,把這批商品發案給最適合的人。</p>
+        <div class="card">
+          <div class="field" style="margin-bottom:14px"><label>篩選 Tag</label>
+            <div class="tagpick"><span class="tp on">保健</span><span class="tp on">美妝</span><span class="tp on">女性25-45</span><span class="tp">3C</span></div>
+          </div>
+          <div class="picklist">
+            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>Bella</b><span>美妝 · 保健 · 女性25-45 · FB+IG</span></div><span class="pmeta">適配 92%</span></div>
+            <div class="pi"><span class="ck"></span><div class="pmain"><b>阿哲選物</b><span>3C · 家居 · 男性</span></div><span class="pmeta">適配 41%</span></div>
+            <div class="pi"><span class="ck"></span><div class="pmain"><b>團購女王 Kiki</b><span>食品 · 生活</span></div><span class="pmeta">適配 63%</span></div>
+          </div>
+          <p class="note">// 分級 S/A/B/C 為內部欄位,配對時參考,對直播主不顯示。</p>
+          <div class="actions"><button type="button" class="btn primary act">發案給 Bella</button></div>
+        </div>
+      </div>
+
+      <!-- P3 -->
+      <div class="screen" data-step="2">
+        <div class="stitle"><span class="sn">P3</span><h3>選品組場</h3></div>
+        <p class="sdesc">開一個新場次草稿,從報價池<b>跨品牌</b>挑商品組成這一場的銷售清單。</p>
+        <div class="card">
+          <div class="picklist">
+            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>益生菌 30入</b><span>綠研所 · 保健</span></div><span class="pmeta">$880</span></div>
+            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>亮采精華液 30ml</b><span>SkinGlow 膚光 · 保養</span></div><span class="pmeta">$1,280</span></div>
+            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>擴香組</b><span>HomeWarm 暖窩 · 家居</span></div><span class="pmeta">$1,200</span></div>
+            <div class="pi"><span class="ck"></span><div class="pmain"><b>膠原蛋白飲</b><span>綠研所 · 保健</span></div><span class="pmeta">$1,050</span></div>
+          </div>
+          <p class="note">// 已選 3 件 / 3 品牌 → 一場多品牌（歸戶見 TBD B4）。</p>
+          <div class="actions"><button type="button" class="btn primary act">加入場次草稿（3 件）</button></div>
+        </div>
+      </div>
+
+      <!-- P4 -->
+      <div class="screen" data-step="3">
+        <div class="stitle"><span class="sn">P4</span><h3>案型設計 + 定價</h3></div>
+        <p class="sdesc">為每個選品套用案型(AI 可生成),設定價;<b>含稅 / 未稅自動換算</b>確保結算一致。</p>
+        <div class="card">
+          <div class="tablewrap">
+            <table class="tbl">
+              <thead><tr><th>商品 · 案型</th><th>稅基</th><th class="num">未稅</th><th class="num">含稅</th></tr></thead>
+              <tbody>
+                <tr><td>益生菌 · 買3送1</td><td><span class="tax in">含稅</span></td><td class="num">2,514</td><td class="num">2,640</td></tr>
+                <tr><td>精華液 · 2入組合</td><td><span class="tax ex">未稅</span></td><td class="num">1,580</td><td class="num">1,659</td></tr>
+                <tr><td>擴香組 · 滿額禮</td><td><span class="tax in">含稅</span></td><td class="num">1,143</td><td class="num">1,200</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="ai" style="margin-top:15px">
+            <span class="aic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
+            <div><b>AI 案型建議</b><p>益生菌「買3送1」放壓軸主推復購;精華液組合綁滿額禮提客單。預估客單 +18%。</p></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">確認案型與定價</button></div>
+        </div>
+      </div>
+
+      <!-- P5 -->
+      <div class="screen" data-step="4">
+        <div class="stitle"><span class="sn">P5</span><h3>挑選空場地 + 排程</h3></div>
+        <p class="sdesc">查場地庫在目標日的可用狀態,挑一個空的場地,排入日期時間,場次狀態轉「已排程」。</p>
+        <div class="card">
+          <div class="field" style="margin-bottom:12px"><label>目標日期</label><div class="seg-ctl"><span class="on">2026-09-18</span></div></div>
+          <div class="venues">
+            <div class="venue pick"><div class="vinfo"><b>信義 A 棚</b><span>容納 30 · 有打光</span></div><span class="avail free">9/18 可用 ✓</span></div>
+            <div class="venue"><div class="vinfo"><b>內湖 B 棚</b><span>容納 50 · 大型</span></div><span class="avail busy">9/18 已被占</span></div>
+            <div class="venue"><div class="vinfo"><b>三重 C 棚</b><span>容納 20 · 簡約</span></div><span class="avail free">9/18 可用</span></div>
+          </div>
+          <div class="form c2" style="margin-top:15px">
+            <div class="field"><label>已選場地</label><div class="inp">信義 A 棚</div></div>
+            <div class="field"><label>開播時間</label><div class="inp mono">2026-09-18 20:00</div></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">排入排程 → 已排程</button></div>
+        </div>
+      </div>
+
+      <!-- P6 -->
+      <div class="screen" data-step="5">
+        <div class="stitle"><span class="sn">P6</span><h3>直播中場控</h3></div>
+        <p class="sdesc">開播當天把場次切「直播中」,看即時數據,結束後標記進入對帳。</p>
+        <div class="card">
+          <div class="liveband" style="margin-bottom:16px"><span class="blip"></span>LS-0918 直播中 · 信義 A 棚</div>
+          <div class="stepper">
+            <span class="st done"><span class="dot"></span>草稿</span><span class="arr fill"></span>
+            <span class="st done"><span class="dot"></span>已排程</span><span class="arr fill"></span>
+            <span class="st now"><span class="dot"></span>直播中</span><span class="arr"></span>
+            <span class="st"><span class="dot"></span>對帳中</span><span class="arr"></span>
+            <span class="st"><span class="dot"></span>已結算</span>
+          </div>
+          <div class="stats" style="margin-top:18px">
+            <div class="tile"><div class="tl">即時 GMV</div><div class="tv">$214,300</div></div>
+            <div class="tile"><div class="tl">在線峰值</div><div class="tv">3,820</div></div>
+            <div class="tile"><div class="tl">已售件數</div><div class="tv">486</div></div>
+            <div class="tile"><div class="tl">當前主打</div><div class="tv" style="font-size:14px">益生菌</div></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">標記直播結束 → 對帳中</button></div>
+        </div>
+      </div>
+
+      <!-- P7 -->
+      <div class="screen" data-step="6">
+        <div class="stitle"><span class="sn">P7</span><h3>場後對帳 + 多品牌分開歸戶</h3></div>
+        <p class="sdesc">收品牌與渠道雙邊回報,逐品牌歸戶比對;出貨 ≠ 回報時開爭議單。</p>
+        <div class="card">
+          <div class="tablewrap">
+            <table class="tbl">
+              <thead><tr><th>品牌</th><th class="num">出貨</th><th class="num">回報</th><th class="num">差異</th><th>狀態</th></tr></thead>
+              <tbody>
+                <tr><td>綠研所</td><td class="num">215</td><td class="num">210</td><td class="num">5</td><td><span class="pill amber">爭議 #D-0918-01</span></td></tr>
+                <tr><td>SkinGlow 膚光</td><td class="num">74</td><td class="num">74</td><td class="num">0</td><td><span class="pill green">一致</span></td></tr>
+                <tr><td>HomeWarm 暖窩</td><td class="num">50</td><td class="num">50</td><td class="num">0</td><td><span class="pill green">一致</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="note">// 歸戶粒度 = 場次 × 品牌（B4）。爭議裁決 TBD B5,結清後才可結算。</p>
+          <div class="actions"><button type="button" class="btn primary act">完成對帳</button></div>
+        </div>
+      </div>
+
+      <!-- P8 -->
+      <div class="screen" data-step="7">
+        <div class="stitle"><span class="sn">P8</span><h3>結算 + 分潤 + 報表（流程終點）</h3></div>
+        <p class="sdesc">選結算時機開佣金,算我方佣金與各方分潤(Agent / Net),產出報表。</p>
+        <div class="card">
+          <div class="field" style="margin-bottom:14px"><label>結算時機（B1）</label>
+            <div class="seg-ctl"><span class="on">退貨期後開</span><span>首批下訂開</span><span>分兩次</span></div>
+          </div>
+          <div class="tablewrap">
+            <table class="tbl">
+              <thead><tr><th>品牌</th><th class="num">GMV</th><th class="num">退貨</th><th class="num">淨 GMV</th><th class="num">take 8%</th></tr></thead>
+              <tbody>
+                <tr><td>綠研所</td><td class="num">180,000</td><td class="num">12,000</td><td class="num">168,000</td><td class="num">13,440</td></tr>
+                <tr><td>膚光</td><td class="num">95,000</td><td class="num">5,000</td><td class="num">90,000</td><td class="num">7,200</td></tr>
+                <tr><td>暖窩</td><td class="num">60,000</td><td class="num">0</td><td class="num">60,000</td><td class="num">4,800</td></tr>
+                <tr class="total"><td>合計</td><td class="num">335,000</td><td class="num">17,000</td><td class="num">318,000</td><td class="num">25,440</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="kv" style="margin-top:14px">
+            <div class="r"><span class="k">我方佣金（唯一認列營收）</span><span class="v" style="color:var(--teal-d)">$25,440</span></div>
+            <div class="r"><span class="k">直播主團隊淨分潤</span><span class="v">~$120,860</span></div>
+          </div>
+          <p class="note">// 不認 GMV 全額,只認佣金(IFRS 15 Agent)。佣金基數 gross vs 淨 屬 B1/B2,可配置。</p>
+          <div class="actions"><button type="button" class="btn primary" disabled>已結算 ✓</button></div>
+        </div>
       </div>
     </div>
 
-    <div class="grid c2">
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><h3>報價池（3 品牌進件）</h3></div>
-        <div class="tablewrap">
-          <table class="tbl">
-            <thead><tr><th>品牌</th><th>商品</th><th>稅基</th><th class="num">供貨</th><th class="num">售價</th></tr></thead>
-            <tbody>
-              <tr><td>綠研所</td><td>益生菌 30入</td><td><span class="tax in">含稅</span></td><td class="num">480</td><td class="num">880</td></tr>
-              <tr><td>SkinGlow 膚光</td><td>亮采精華液 30ml</td><td><span class="tax ex">未稅</span></td><td class="num">620</td><td class="num">1,280</td></tr>
-              <tr><td>HomeWarm 暖窩</td><td>擴香組</td><td><span class="tax in">含稅</span></td><td class="num">700</td><td class="num">1,200</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <p class="note">// 每個價格帶帶 tax_inclusive flag，系統自動雙向換算。</p>
-      </div>
-
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M21 3l-7 7M8 21H3v-5M3 21l7-7"/></svg></span><h3>配對 + 案型設計</h3></div>
-        <p style="font-size:13px;color:var(--ink-2);margin-bottom:12px">配對對象 <b>Bella</b> · Tag <span class="mono" style="color:var(--teal-d)">美妝 · 保健 · 女性25-45</span></p>
-        <div class="kv">
-          <div class="r"><span class="k">綠研所</span><span class="v">買 3 送 1</span></div>
-          <div class="r"><span class="k">膚光</span><span class="v">2 入組合 $1,580</span></div>
-          <div class="r"><span class="k">暖窩</span><span class="v">滿 $1,000 送香氛袋</span></div>
-        </div>
-        <div class="ai" style="margin-top:14px">
-          <span class="aic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
-          <div><b>AI 案型建議</b><p>Bella 客群偏保健復購，建議益生菌「買3送1」放壓軸；精華液組合價綁滿額禮提客單。預估客單 +18%。</p></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card span2" style="margin-top:16px">
-      <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><h3>定價面板 · 含稅／未稅雙向</h3></div>
-      <div class="tablewrap">
-        <table class="tbl">
-          <thead><tr><th>品牌 · 案型</th><th>稅基</th><th class="num">未稅</th><th class="num">含稅 (×1.05)</th></tr></thead>
-          <tbody>
-            <tr><td>綠研所 · 買3送1（付3得4）</td><td><span class="tax in">含稅</span></td><td class="num">2,514</td><td class="num">2,640</td></tr>
-            <tr><td>SkinGlow 膚光 · 2入組合價</td><td><span class="tax ex">未稅</span></td><td class="num">1,580</td><td class="num">1,659</td></tr>
-            <tr><td>HomeWarm 暖窩 · 滿額禮</td><td><span class="tax in">含稅</span></td><td class="num">1,143</td><td class="num">1,200</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note">// 膚光以未稅報價 → 系統自動推含稅 $1,659；含稅品牌則反推未稅，結算一致。</p>
-    </div>
-
-    <div class="card span2" style="margin-top:16px">
-      <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg></span><h3>場後結算 · 多品牌分開歸戶</h3><span class="tbd">TBD B1 結算時機 · B4 歸戶</span></div>
-      <div class="tablewrap">
-        <table class="tbl">
-          <thead><tr><th>品牌（歸戶單位 = 場次 × 品牌）</th><th class="num">GMV</th><th class="num">退貨</th><th class="num">淨 GMV</th><th class="num">我方 take 8%</th></tr></thead>
-          <tbody>
-            <tr><td>綠研所</td><td class="num">180,000</td><td class="num">12,000</td><td class="num">168,000</td><td class="num">13,440</td></tr>
-            <tr><td>SkinGlow 膚光</td><td class="num">95,000</td><td class="num">5,000</td><td class="num">90,000</td><td class="num">7,200</td></tr>
-            <tr><td>HomeWarm 暖窩</td><td class="num">60,000</td><td class="num">0</td><td class="num">60,000</td><td class="num">4,800</td></tr>
-            <tr class="total"><td>合計</td><td class="num">335,000</td><td class="num">17,000</td><td class="num">318,000</td><td class="num">25,440</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note">// 一場 5–10 個品牌時，結算以「場次 × 品牌」為歸戶粒度（B4）。佣金基數 gross vs 淨GMV 屬 B1/B2，設為可配置。</p>
-    </div>
-
-    <div class="grid c2" style="margin-top:16px">
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></span><h3>各方分潤（Agent / Net）</h3></div>
-        <div class="kv">
-          <div class="r"><span class="k">我方佣金（唯一認列營收）</span><span class="v" style="color:var(--teal-d)">$25,440</span></div>
-          <div class="r"><span class="k">品牌供貨成本（估）</span><span class="v">~$171,700</span></div>
-          <div class="r"><span class="k">直播主團隊淨分潤</span><span class="v">~$120,860</span></div>
-          <div class="r"><span class="k">營業稅 5% 基數</span><span class="v">佣金 $25,440</span></div>
-        </div>
-        <p class="note">// 我們不認 GMV 全額，只認佣金（IFRS 15 Agent）。</p>
-      </div>
-
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2L12 16.6 5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span><h3>AI 場後綜合評分</h3></div>
-        <div class="kv">
-          <div class="r"><span class="k">綠研所</span><span class="v">A · 退貨偏高</span></div>
-          <div class="r"><span class="k">膚光</span><span class="v">A+ · 組合奏效</span></div>
-          <div class="r"><span class="k">暖窩</span><span class="v">B+ · 零退貨</span></div>
-          <div class="r"><span class="k">本場整體</span><span class="v" style="color:var(--violet)">A · 可複製</span></div>
-        </div>
-        <p class="note">// 各品牌獨立評分 + 數據回饋，餵下次配對與案型。</p>
-      </div>
-    </div>
+    <div class="navbtns"><button type="button" class="btn prev">‹ 上一步</button><span class="count"></span><button type="button" class="btn primary next">下一步 ›</button></div>
   </div>
 </section>
 
-<!-- ============ VIEW C · 直播主 ============ -->
-<section class="view" id="view-host" role="tabpanel" aria-label="直播主視角">
+<!-- ===================== 直播主 ===================== -->
+<section class="view" id="view-host" data-role="host" role="tabpanel" aria-label="直播主工作流程">
   <div class="wrap">
-    <div class="vhead"><span class="badge host">直播主視角</span><h2>Bella · 我的直播台</h2></div>
-    <p class="vlead">人到就好。我只要看「哪天、哪場、賣什麼、怎麼介紹」，以及這場我賺多少——選品、案型、場地、出貨、對帳都由 Live MCN 處理。</p>
+    <div class="vhead"><span class="badge host">直播主工作流程</span><h2>Bella · 人到就好的五步</h2></div>
+    <p class="vlead">建檔 → 接檔期 → 直播前備課 → 直播 → 看分潤。選品、案型、場地、出貨、對帳都不用你管。</p>
 
-    <div class="grid c2">
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>我的檔期表</h3><span class="pill teal" style="margin-left:auto">即將開播</span></div>
-        <div class="kv">
-          <div class="r"><span class="k">檔次</span><span class="v">LS-0918</span></div>
-          <div class="r"><span class="k">日期時間</span><span class="v">09-18（六）20:00</span></div>
-          <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
-          <div class="r"><span class="k">本場品牌數</span><span class="v">3</span></div>
-          <div class="r"><span class="k">準備事項</span><span class="v">人到就好</span></div>
+    <div class="rail">
+      <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">建立檔案</span></button>
+      <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">接受檔期</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">直播前備課</span></button>
+      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">直播中</span></button>
+      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">看分潤</span></button>
+    </div>
+
+    <div class="stage">
+      <!-- H1 -->
+      <div class="screen active" data-step="0">
+        <div class="stitle"><span class="sn">H1</span><h3>建立直播主檔案</h3></div>
+        <p class="sdesc">填基本資料、選擅長品類、綁直播頻道。系統用這些 Tag 幫你配對適合的品牌。</p>
+        <div class="card">
+          <div class="form c2">
+            <div class="field"><label>暱稱 / 團隊名</label><div class="inp">Bella</div></div>
+            <div class="field"><label>頻道</label><div class="inp mono">FB + IG</div></div>
+          </div>
+          <div class="field" style="margin-top:15px"><label>擅長品類（可複選）</label>
+            <div class="tagpick"><span class="tp on">美妝</span><span class="tp on">保健</span><span class="tp">食品</span><span class="tp">家居</span></div>
+          </div>
+          <div class="iso" style="margin-top:16px"><span class="il">刻意不顯示</span><p>系統內部會標分級(S/A/B/C)輔助配對,但<b>不會顯示給你</b>,避免不舒服。</p></div>
+          <div class="actions"><button type="button" class="btn primary act">建立檔案</button></div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span><h3>Live MCN 幫我搞定</h3></div>
-        <div class="kv">
-          <div class="r"><span class="k">選品</span><span class="v">已挑好</span></div>
-          <div class="r"><span class="k">案型 · 話術</span><span class="v">已備</span></div>
-          <div class="r"><span class="k">場地</span><span class="v">已排</span></div>
-          <div class="r"><span class="k">出貨 · 退貨</span><span class="v">代為協調</span></div>
-          <div class="r"><span class="k">對帳 · 結算</span><span class="v">自動</span></div>
+      <!-- H2 -->
+      <div class="screen" data-step="1">
+        <div class="stitle"><span class="sn">H2</span><h3>收到場次邀約 + 接受檔期</h3></div>
+        <p class="sdesc">企劃配對到你了。看場次摘要與預估分潤,決定接不接。</p>
+        <div class="card">
+          <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>場次邀約 · LS-0918</h3><span class="pill teal" style="margin-left:auto">待回覆</span></div>
+          <div class="kv">
+            <div class="r"><span class="k">日期時間</span><span class="v">09-18（六）20:00</span></div>
+            <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
+            <div class="r"><span class="k">本場品牌數</span><span class="v">3</span></div>
+            <div class="r"><span class="k">預估團隊分潤</span><span class="v" style="color:var(--teal-d)">~$120,000</span></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">接受檔期</button><button type="button" class="btn">婉拒</button></div>
+        </div>
+      </div>
+
+      <!-- H3 -->
+      <div class="screen" data-step="2">
+        <div class="stitle"><span class="sn">H3</span><h3>直播前備課</h3></div>
+        <p class="sdesc">開播前看「這場要賣什麼」:每個商品的案型話術、售價、賣點都幫你備好。</p>
+        <div class="grid c3">
+          <div class="card prod"><span class="brand">綠研所</span><span class="pn">益生菌 30入</span><span class="deal"><b>買 3 送 1</b> · 壓軸主推復購</span><span class="price">$880 <small>／盒(含稅)</small></span></div>
+          <div class="card prod"><span class="brand">SkinGlow 膚光</span><span class="pn">亮采精華液</span><span class="deal"><b>2 入組合 $1,659</b> · 強調保濕</span><span class="price">$1,344 <small>／瓶(含稅)</small></span></div>
+          <div class="card prod"><span class="brand">HomeWarm 暖窩</span><span class="pn">擴香組</span><span class="deal"><b>滿 $1,000 送香氛袋</b> · 收尾提客單</span><span class="price">$1,200 <small>／組(含稅)</small></span></div>
+        </div>
+        <div class="actions"><button type="button" class="btn primary act">話術都看過了,準備開播</button></div>
+      </div>
+
+      <!-- H4 -->
+      <div class="screen" data-step="3">
+        <div class="stitle"><span class="sn">H4</span><h3>直播中</h3></div>
+        <p class="sdesc">專心播。系統顯示商品順序與話術提示,場控由我方協調。</p>
+        <div class="card">
+          <div class="liveband" style="margin-bottom:16px"><span class="blip"></span>直播中 · LS-0918</div>
+          <div class="picklist">
+            <div class="pi"><span class="ck"></span><div class="pmain"><b>1. 亮采精華液</b><span>2 入組合 $1,659 · 開場保養</span></div><span class="pmeta">已賣 74</span></div>
+            <div class="pi"><span class="ck"></span><div class="pmain"><b>2. 擴香組</b><span>滿額禮 · 提客單</span></div><span class="pmeta">已賣 50</span></div>
+            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>3. 益生菌（主打中）</b><span>買3送1 · 壓軸復購</span></div><span class="pmeta">進行中</span></div>
+          </div>
+          <div class="actions"><button type="button" class="btn primary act">結束直播</button></div>
+        </div>
+      </div>
+
+      <!-- H5 -->
+      <div class="screen" data-step="4">
+        <div class="stitle"><span class="sn">H5</span><h3>看分潤（流程終點）</h3></div>
+        <p class="sdesc">場後查本場團隊 GMV、淨分潤與結算狀態。對帳結算都自動。</p>
+        <div class="card">
+          <div class="stats">
+            <div class="tile"><div class="tl">本場淨 GMV</div><div class="tv">$318,000</div></div>
+            <div class="tile"><div class="tl">Live MCN 服務費</div><div class="tv">$25,440</div></div>
+            <div class="tile accent"><div class="tl">我的團隊淨分潤</div><div class="tv">~$120,860</div></div>
+            <div class="tile"><div class="tl">結算狀態</div><div class="tv" style="font-size:14px">對帳中</div></div>
+          </div>
+          <div class="iso" style="margin-top:16px"><span class="il">刻意不顯示</span><p>看不到我方對品牌談下來的「讓價空間」——這是 Live MCN 的毛利來源,也與防跳單(S1)的可見度設計相關。</p></div>
         </div>
       </div>
     </div>
 
-    <div class="card span2" style="margin-top:16px">
-      <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span><h3>這場要賣什麼（3 件）</h3></div>
-      <div class="grid c3">
-        <div class="card prod" style="box-shadow:none">
-          <span class="brand">綠研所</span>
-          <span class="pn">益生菌 30入／盒</span>
-          <span class="deal"><b>買 3 送 1</b> · 壓軸主打，主推復購</span>
-          <span class="price">$880 <small>／盒（含稅）</small></span>
-        </div>
-        <div class="card prod" style="box-shadow:none">
-          <span class="brand">SkinGlow 膚光</span>
-          <span class="pn">亮采精華液 30ml</span>
-          <span class="deal"><b>2 入組合 $1,659</b> · 含稅，強調保濕亮采</span>
-          <span class="price">$1,344 <small>／瓶（含稅）</small></span>
-        </div>
-        <div class="card prod" style="box-shadow:none">
-          <span class="brand">HomeWarm 暖窩</span>
-          <span class="pn">擴香組</span>
-          <span class="deal"><b>滿 $1,000 送香氛袋</b> · 提客單收尾</span>
-          <span class="price">$1,200 <small>／組（含稅）</small></span>
-        </div>
-      </div>
-    </div>
-
-    <div class="card span2" style="margin-top:16px">
-      <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><h3>這場我賺多少</h3><span class="pill amber" style="margin-left:auto">對帳中 · 待結算</span></div>
-      <div class="stats">
-        <div class="tile"><div class="tl">本場淨 GMV</div><div class="tv">$318,000</div></div>
-        <div class="tile"><div class="tl">Live MCN 服務費</div><div class="tv">$25,440</div></div>
-        <div class="tile accent"><div class="tl">我的團隊淨分潤</div><div class="tv">~$120,860</div></div>
-        <div class="tile"><div class="tl">結算時機</div><div class="tv" style="font-size:14px">依合約 (B1)</div></div>
-      </div>
-    </div>
-
-    <div class="iso"><span class="il">刻意不顯示</span><p>本視角<b>不出現</b>內部分級（S/A/B/C），也<b>看不到</b>我方對品牌談下來的「讓價空間」——這是 Live MCN 的毛利來源之一，與防止跳單（S1 Disintermediation）的可見度設計直接相關。</p></div>
+    <div class="navbtns"><button type="button" class="btn prev">‹ 上一步</button><span class="count"></span><button type="button" class="btn primary next">下一步 ›</button></div>
   </div>
 </section>
 
@@ -284,33 +462,56 @@
 
 <footer>
   <div class="wrap">
-    <span>Live MCN · 三視角互動原型 · 假資料 placeholder</span>
-    <a href="page3.html">相關：系統架構規劃 →</a>
+    <span>Live MCN · 三角色工作流程原型 · 假資料 placeholder</span>
+    <a href="page3.html">相關:系統架構規劃 →</a>
   </div>
 </footer>
 
 <script>
 (function(){
-  var order=['vendor','planner','host'];
+  var roles=['vendor','planner','host'];
   var tabs=Array.prototype.slice.call(document.querySelectorAll('.switch button'));
-  function show(v){
-    if(order.indexOf(v)<0)v='vendor';
-    tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===v?'true':'false');});
-    document.querySelectorAll('.view').forEach(function(p){p.classList.toggle('active',p.id==='view-'+v);});
-    if(history.replaceState)history.replaceState(null,'','#'+v);
+  var step={vendor:0,planner:0,host:0};
+
+  function view(r){return document.getElementById('view-'+r);}
+  function screens(r){return Array.prototype.slice.call(view(r).querySelectorAll('.screen'));}
+  function rail(r){return Array.prototype.slice.call(view(r).querySelectorAll('.rstep'));}
+
+  function renderStep(r){
+    var scr=screens(r),rs=rail(r),i=step[r],n=scr.length,v=view(r);
+    scr.forEach(function(s,k){s.classList.toggle('active',k===i);});
+    rs.forEach(function(b,k){b.classList.toggle('now',k===i);b.classList.toggle('done',k<i);b.setAttribute('aria-current',k===i?'step':'false');});
+    var prev=v.querySelector('.prev'),next=v.querySelector('.next');
+    prev.disabled=(i===0);next.disabled=(i===n-1);
+    next.textContent=(i===n-1)?'完成 ✓':'下一步 ›';
+    v.querySelector('.count').textContent='步驟 '+(i+1)+' / '+n;
   }
+  function showRole(r){
+    if(roles.indexOf(r)<0)r='vendor';
+    tabs.forEach(function(b){b.setAttribute('aria-selected',b.dataset.view===r?'true':'false');});
+    roles.forEach(function(x){view(x).classList.toggle('active',x===r);});
+    renderStep(r);
+    if(history.replaceState)history.replaceState(null,'','#'+r);
+  }
+  function go(r,i){var n=screens(r).length;step[r]=Math.max(0,Math.min(n-1,i));renderStep(r);}
+
   tabs.forEach(function(b,i){
-    b.addEventListener('click',function(){show(b.dataset.view);});
+    b.addEventListener('click',function(){showRole(b.dataset.view);});
     b.addEventListener('keydown',function(e){
-      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
-        e.preventDefault();
-        var ni=(i+(e.key==='ArrowRight'?1:order.length-1))%order.length;
-        tabs[ni].focus();show(order[ni]);
-      }
+      if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();
+        var ni=(i+(e.key==='ArrowRight'?1:roles.length-1))%roles.length;tabs[ni].focus();showRole(roles[ni]);}
     });
   });
-  window.addEventListener('hashchange',function(){show((location.hash||'').replace('#',''));});
-  show((location.hash||'').replace('#',''));
+  roles.forEach(function(r){
+    var v=view(r);
+    rail(r).forEach(function(b,k){b.addEventListener('click',function(){go(r,k);});});
+    v.querySelector('.prev').addEventListener('click',function(){go(r,step[r]-1);});
+    v.querySelector('.next').addEventListener('click',function(){go(r,step[r]+1);});
+    v.querySelectorAll('.btn.act').forEach(function(b){b.addEventListener('click',function(){go(r,step[r]+1);});});
+  });
+
+  window.addEventListener('hashchange',function(){showRole((location.hash||'').replace('#',''));});
+  showRole((location.hash||'').replace('#',''));
 })();
 </script>
 
