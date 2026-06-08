@@ -82,6 +82,56 @@
     </div>
 
     <div class="ergroup">
+      <div class="gl">關聯圖（class diagram 視角）</div>
+      <svg class="clsd" viewBox="0 0 1000 610" role="img" aria-label="模型關聯圖">
+        <!-- edges -->
+        <path class="cedge" d="M300 108 L180 82"/>
+        <path class="cedge" d="M300 122 L180 197"/>
+        <path class="cedge" d="M382 136 L378 250"/>
+        <path class="cedge" d="M464 112 L786 185"/>
+        <path class="cedge" d="M464 100 L800 77"/>
+        <path class="cedge" d="M450 278 L560 470"/>
+        <path class="cedge" d="M375 294 L375 460"/>
+        <path class="cedge" d="M635 404 L635 455"/>
+        <path class="cedge" d="M635 499 L635 550"/>
+        <path class="cedge" d="M850 209 L712 380"/>
+        <path class="cedge dash" d="M884 209 L878 300"/>
+        <!-- nodes -->
+        <g class="node"><rect class="cbx" x="30" y="60" width="150" height="44" rx="9"/><text class="cname" x="105" y="79" text-anchor="middle">場地</text><text class="csub" x="105" y="93" text-anchor="middle">Venue</text></g>
+        <g class="node"><rect class="cbx" x="30" y="175" width="150" height="44" rx="9"/><text class="cname" x="105" y="194" text-anchor="middle">直播主</text><text class="csub" x="105" y="208" text-anchor="middle">Creator</text></g>
+        <g class="node root"><rect class="cbx" x="300" y="80" width="164" height="56" rx="11"/><text class="cname" x="382" y="106" text-anchor="middle">直播檔次</text><text class="csub" x="382" y="122" text-anchor="middle">Session · 聚合根</text></g>
+        <g class="node"><rect class="cbx" x="300" y="250" width="150" height="44" rx="9"/><text class="cname" x="375" y="269" text-anchor="middle">選品行</text><text class="csub" x="375" y="283" text-anchor="middle">LineItem</text></g>
+        <g class="node"><rect class="cbx" x="300" y="460" width="150" height="44" rx="9"/><text class="cname" x="375" y="479" text-anchor="middle">案型</text><text class="csub" x="375" y="493" text-anchor="middle">DealType</text></g>
+        <g class="node"><rect class="cbx" x="560" y="360" width="150" height="44" rx="9"/><text class="cname" x="635" y="379" text-anchor="middle">品牌</text><text class="csub" x="635" y="393" text-anchor="middle">Brand</text></g>
+        <g class="node"><rect class="cbx" x="560" y="455" width="150" height="44" rx="9"/><text class="cname" x="635" y="474" text-anchor="middle">商品</text><text class="csub" x="635" y="488" text-anchor="middle">Product</text></g>
+        <g class="node"><rect class="cbx" x="560" y="550" width="150" height="44" rx="9"/><text class="cname" x="635" y="569" text-anchor="middle">報價</text><text class="csub" x="635" y="583" text-anchor="middle">Quote</text></g>
+        <g class="node agg"><rect class="cbx" x="786" y="165" width="164" height="44" rx="9"/><text class="cname" x="868" y="184" text-anchor="middle">結算行</text><text class="csub" x="868" y="198" text-anchor="middle">SettlementLine · 場次×品牌</text></g>
+        <g class="node"><rect class="cbx" x="800" y="55" width="150" height="44" rx="9"/><text class="cname" x="875" y="74" text-anchor="middle">場後評分</text><text class="csub" x="875" y="88" text-anchor="middle">Scorecard</text></g>
+        <g class="node"><rect class="cbx" x="800" y="300" width="150" height="44" rx="9"/><text class="cname" x="875" y="319" text-anchor="middle">爭議單</text><text class="csub" x="875" y="333" text-anchor="middle">DisputeTicket</text></g>
+        <!-- cardinality labels (讀法：左→右) -->
+        <text class="clab" x="238" y="88">N:1</text>
+        <text class="clab" x="234" y="164">N:1</text>
+        <text class="cnote" x="234" y="176">多主播 → N:N</text>
+        <text class="clab" x="396" y="198">1:N</text>
+        <text class="clab" x="612" y="138">1:N</text>
+        <text class="clab" x="640" y="80">1:1</text>
+        <text class="cnote" x="640" y="92">每場每品牌</text>
+        <text class="clab" x="500" y="376">N:1</text>
+        <text class="clab" x="392" y="380">N:1</text>
+        <text class="clab" x="652" y="432">1:N</text>
+        <text class="clab" x="652" y="527">1:N</text>
+        <text class="clab" x="806" y="280">N:1</text>
+        <text class="clab" x="908" y="258">1:0..1</text>
+      </svg>
+      <div class="cleg">
+        <span><i class="root"></i>聚合根 Session</span>
+        <span><i class="agg"></i>結算聚合 SettlementLine（場次×品牌）</span>
+        <span><i></i>一般實體</span>
+        <span>線上數字為 cardinality，讀法：左 → 右</span>
+      </div>
+    </div>
+
+    <div class="ergroup">
       <div class="gl">關係（文字 ER · 含 cardinality）</div>
       <div class="rel">
 <span class="c">// 主檔</span>

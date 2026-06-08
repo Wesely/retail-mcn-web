@@ -107,6 +107,25 @@ h2.sec .k{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--tea
 .rel .agg{color:oklch(0.8 0.1 285);font-weight:700}
 .rel .card{color:oklch(0.78 0.1 195)}
 
+/* class diagram (relationship view) */
+.clsd{display:block;width:100%;height:auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:8px}
+.clsd .cbx{fill:var(--surface);stroke:var(--line);stroke-width:1.5}
+.clsd .node.root .cbx{stroke:var(--violet);stroke-width:2.5;fill:var(--violet-soft)}
+.clsd .node.agg .cbx{stroke:var(--teal);stroke-width:2.5;fill:var(--teal-soft)}
+.clsd .cname{font-family:var(--display);font-weight:700;font-size:13.5px;fill:var(--ink)}
+.clsd .csub{font-family:var(--mono);font-size:9px;fill:var(--muted);letter-spacing:.02em}
+.clsd .node.root .cname{fill:var(--violet-d)}
+.clsd .node.agg .cname{fill:var(--teal-d)}
+.clsd .cedge{fill:none;stroke:oklch(0.7 0.015 255);stroke-width:1.6}
+.clsd .cedge.dash{stroke-dasharray:5 4}
+.clsd .clab{font-family:var(--mono);font-size:10px;font-weight:700;fill:var(--ink-2);text-anchor:middle;paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round}
+.clsd .cnote{font-family:var(--mono);font-size:8.5px;fill:var(--faint);text-anchor:middle;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
+.cleg{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.cleg span{display:inline-flex;align-items:center;gap:6px}
+.cleg i{width:13px;height:13px;border-radius:4px;border:2px solid var(--line);background:var(--surface);flex-shrink:0}
+.cleg i.root{border-color:var(--violet);background:var(--violet-soft)}
+.cleg i.agg{border-color:var(--teal);background:var(--teal-soft)}
+
 /* callout */
 .callout{display:flex;gap:13px;align-items:flex-start;background:var(--violet-soft);border:1px solid oklch(0.88 0.04 285);border-radius:12px;padding:15px 18px;margin-top:16px}
 .callout .ci{width:30px;height:30px;border-radius:9px;background:var(--surface);display:grid;place-items:center;flex-shrink:0}
