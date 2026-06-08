@@ -328,3 +328,30 @@ footer a{color:var(--teal-d);text-decoration:none;font-weight:600}
 .cal .bk{font-family:var(--mono);font-size:9.5px;font-weight:700;padding:2px 5px;border-radius:5px;background:var(--violet-soft);color:var(--violet);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;pointer-events:none}
 /* reconciliation pivot tabs (依場次/廠商/爭議) */
 .seg-ctl.recon-tabs span{cursor:pointer;transition:background .15s,color .15s}
+
+/* host calendar: status-coloured broadcast chips (受邀/即將/已播畢) */
+.cal .sx.done:not(.on){background:var(--line-2);color:var(--muted)}
+.cal .sx.invite:not(.on){background:var(--amber-soft);color:var(--amber-d)}
+
+/* host session detail: sub-lead + product card link button */
+.sessdetail .sublead{font-size:12.5px;color:var(--muted);margin:2px 0 10px}
+.prod .btn{margin-top:11px;font-size:12.5px;padding:9px 12px;width:100%;justify-content:center}
+
+/* side panel drawer (商品話術/售價/賣點 速覽) */
+.drawer-backdrop{position:fixed;inset:0;background:oklch(0.24 0.02 255/.4);opacity:0;visibility:hidden;transition:opacity .25s var(--ease);z-index:90}
+.drawer-backdrop.open{opacity:1;visibility:visible}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(400px,92vw);background:var(--surface);box-shadow:-14px 0 44px oklch(0.24 0.02 255/.18);transform:translateX(101%);transition:transform .3s var(--ease);z-index:91;overflow-y:auto;padding:26px 24px}
+.drawer.open{transform:none}
+@media(prefers-reduced-motion:reduce){.drawer,.drawer-backdrop{transition:none}}
+.drawer .dclose{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:9px;border:1px solid var(--line);background:var(--surface);cursor:pointer;font-size:13px;color:var(--ink-2);line-height:1}
+.drawer .dclose:hover{border-color:var(--ink)}
+.drawer .dbrand{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted)}
+.drawer .dttl{font-family:var(--display);font-size:20px;font-weight:800;letter-spacing:-.02em;margin:4px 0 14px}
+.drawer .drow{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line-2)}
+.drawer .drow span{color:var(--muted);font-size:13px}
+.drawer .drow b{font-family:var(--mono);font-size:15px;color:var(--ink)}
+.drawer .ddeal{background:var(--coral-soft);color:var(--coral-d);border-radius:9px;padding:10px 13px;font-size:13px;font-weight:700;margin:12px 0 4px}
+.drawer .dsec{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.04em;margin:20px 0 9px}
+.drawer .dlist{list-style:none;display:flex;flex-direction:column;gap:10px}
+.drawer .dlist li{position:relative;padding-left:18px;font-size:13.5px;color:var(--ink-2);line-height:1.5}
+.drawer .dlist li::before{content:"";position:absolute;left:2px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal-d)}

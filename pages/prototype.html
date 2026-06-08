@@ -38,7 +38,7 @@
     </button>
     <button role="tab" data-view="host" aria-selected="false" aria-controls="view-host">
       <span class="ic"><svg viewBox="0 0 24 24"><path d="M15 10l4.5-2.5v9L15 14M3 8h12v8H3z"/></svg></span>
-      <span class="lbl">直播主<span class="role">HOST · 5 步</span></span>
+      <span class="lbl">直播主<span class="role">HOST · 3 步</span></span>
     </button>
   </div>
 </nav>
@@ -378,15 +378,13 @@
 <!-- ===================== 直播主 ===================== -->
 <section class="view" id="view-host" data-role="host" role="tabpanel" aria-label="直播主工作流程">
   <div class="wrap">
-    <div class="vhead"><span class="badge host">直播主工作流程</span><h2>Bella · 人到就好的五步</h2></div>
-    <p class="vlead">建檔 → 接檔期 → 直播前備課 → 直播 → 看分潤。選品、案型、場地、出貨、對帳都不用你管。</p>
+    <div class="vhead"><span class="badge host">直播主工作流程</span><h2>Bella · 人到就好的三步</h2></div>
+    <p class="vlead">建檔 → 直播行事曆（看／接邀約 + 看要賣什麼）→ 看分潤。選品、案型、場地、出貨、對帳都不用你管。</p>
 
     <div class="rail">
       <button class="rstep" data-step="0"><span class="num">1</span><span class="rl">建立檔案</span></button>
-      <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">接受檔期</span></button>
-      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">直播前備課</span></button>
-      <button class="rstep" data-step="3"><span class="num">4</span><span class="rl">直播中</span></button>
-      <button class="rstep" data-step="4"><span class="num">5</span><span class="rl">看分潤</span></button>
+      <button class="rstep" data-step="1"><span class="num">2</span><span class="rl">直播行事曆</span></button>
+      <button class="rstep" data-step="2"><span class="num">3</span><span class="rl">看分潤</span></button>
     </div>
 
     <div class="stage">
@@ -407,52 +405,59 @@
         </div>
       </div>
 
-      <!-- H2 -->
+      <!-- H2 · 直播行事曆 -->
       <div class="screen" data-step="1">
-        <div class="stitle"><span class="sn">H2</span><h3>收到場次邀約 + 接受檔期</h3></div>
-        <p class="sdesc">企劃配對到你了。看場次摘要與預估分潤,決定接不接。</p>
+        <div class="stitle"><span class="sn">H2</span><h3>直播行事曆</h3></div>
+        <p class="sdesc">看自己所有直播,依狀態分 <b>受邀 / 即將 / 已播畢</b>。點一場 → 看那場要賣的商品與案型;每個商品點「<b>話術・售價・賣點</b>」開側欄速覽。受邀的場可在此接受。</p>
         <div class="card">
-          <div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>場次邀約 · LS-0918</h3><span class="pill teal" style="margin-left:auto">待回覆</span></div>
-          <div class="kv">
-            <div class="r"><span class="k">日期時間</span><span class="v">09-18（五）20:00</span></div>
-            <div class="r"><span class="k">場地</span><span class="v">信義 A 棚</span></div>
-            <div class="r"><span class="k">本場品牌數</span><span class="v">3</span></div>
-            <div class="r"><span class="k">預估團隊分潤</span><span class="v" style="color:var(--teal-d)">~$120,000</span></div>
+          <div class="cal">
+            <div class="calhead"><b>2026 年 9 月</b><span class="nav">‹ 8 月　10 月 ›</span></div>
+            <div class="dow"><span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span></div>
+            <div class="grid7">
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd"><span class="dn">1</span></div>
+              <div class="cd"><span class="dn">2</span></div>
+              <div class="cd"><span class="dn">3</span></div>
+              <div class="cd"><span class="dn">4</span><button class="sx done" data-sess="LS-0904">LS-0904</button></div>
+              <div class="cd"><span class="dn">5</span></div>
+              <div class="cd"><span class="dn">6</span></div>
+              <div class="cd"><span class="dn">7</span></div>
+              <div class="cd"><span class="dn">8</span></div>
+              <div class="cd"><span class="dn">9</span></div>
+              <div class="cd"><span class="dn">10</span></div>
+              <div class="cd"><span class="dn">11</span></div>
+              <div class="cd"><span class="dn">12</span></div>
+              <div class="cd"><span class="dn">13</span></div>
+              <div class="cd"><span class="dn">14</span></div>
+              <div class="cd"><span class="dn">15</span></div>
+              <div class="cd"><span class="dn">16</span></div>
+              <div class="cd"><span class="dn">17</span></div>
+              <div class="cd"><span class="dn">18</span><button class="sx up" data-sess="LS-0918">LS-0918</button></div>
+              <div class="cd"><span class="dn">19</span></div>
+              <div class="cd"><span class="dn">20</span></div>
+              <div class="cd"><span class="dn">21</span></div>
+              <div class="cd"><span class="dn">22</span></div>
+              <div class="cd"><span class="dn">23</span></div>
+              <div class="cd"><span class="dn">24</span></div>
+              <div class="cd"><span class="dn">25</span></div>
+              <div class="cd"><span class="dn">26</span></div>
+              <div class="cd"><span class="dn">27</span></div>
+              <div class="cd"><span class="dn">28</span></div>
+              <div class="cd"><span class="dn">29</span><button class="sx invite" data-sess="LS-0929">LS-0929</button></div>
+              <div class="cd"><span class="dn">30</span></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+              <div class="cd empty"></div>
+            </div>
           </div>
-          <div class="actions"><button type="button" class="btn primary act">接受檔期</button><button type="button" class="btn">婉拒</button></div>
+          <div class="sessdetail" id="host-sess-detail"></div>
         </div>
       </div>
 
-      <!-- H3 -->
+      <!-- H3 · 看分潤 -->
       <div class="screen" data-step="2">
-        <div class="stitle"><span class="sn">H3</span><h3>直播前備課</h3></div>
-        <p class="sdesc">開播前看「這場要賣什麼」:每個商品的案型話術、售價、賣點都幫你備好。</p>
-        <div class="grid c3">
-          <div class="card prod"><span class="brand">綠研所</span><span class="pn">益生菌 30入</span><span class="deal"><b>買 3 送 1</b> · 壓軸主推復購</span><span class="price">$880 <small>／盒(含稅)</small></span></div>
-          <div class="card prod"><span class="brand">SkinGlow 膚光</span><span class="pn">亮采精華液</span><span class="deal"><b>2 入組合 $1,659</b> · 強調保濕</span><span class="price">$1,344 <small>／瓶(含稅)</small></span></div>
-          <div class="card prod"><span class="brand">HomeWarm 暖窩</span><span class="pn">擴香組</span><span class="deal"><b>滿 $1,000 送香氛袋</b> · 收尾提客單</span><span class="price">$1,200 <small>／組(含稅)</small></span></div>
-        </div>
-        <div class="actions"><button type="button" class="btn primary act">話術都看過了,準備開播</button></div>
-      </div>
-
-      <!-- H4 -->
-      <div class="screen" data-step="3">
-        <div class="stitle"><span class="sn">H4</span><h3>直播中</h3></div>
-        <p class="sdesc">專心播。系統顯示商品順序與話術提示,場控由我方協調。</p>
-        <div class="card">
-          <div class="liveband" style="margin-bottom:16px"><span class="blip"></span>直播中 · LS-0918</div>
-          <div class="picklist">
-            <div class="pi"><span class="ck"></span><div class="pmain"><b>1. 亮采精華液</b><span>2 入組合 $1,659 · 開場保養</span></div><span class="pmeta">已賣 74</span></div>
-            <div class="pi"><span class="ck"></span><div class="pmain"><b>2. 擴香組</b><span>滿額禮 · 提客單</span></div><span class="pmeta">已賣 50</span></div>
-            <div class="pi sel"><span class="ck"></span><div class="pmain"><b>3. 益生菌（主打中）</b><span>買3送1 · 壓軸復購</span></div><span class="pmeta">進行中</span></div>
-          </div>
-          <div class="actions"><button type="button" class="btn primary act">結束直播</button></div>
-        </div>
-      </div>
-
-      <!-- H5 -->
-      <div class="screen" data-step="4">
-        <div class="stitle"><span class="sn">H5</span><h3>看分潤（流程終點）</h3></div>
+        <div class="stitle"><span class="sn">H3</span><h3>看分潤（流程終點）</h3></div>
         <p class="sdesc">場後查本場團隊 GMV、淨分潤與結算狀態。對帳結算都自動。</p>
         <div class="card">
           <div class="stats">
@@ -469,6 +474,13 @@
     <div class="navbtns"><button type="button" class="btn prev">‹ 上一步</button><span class="count"></span><button type="button" class="btn primary next">下一步 ›</button></div>
   </div>
 </section>
+
+<!-- side panel drawer：商品話術 / 售價 / 賣點速覽 -->
+<div class="drawer-backdrop" id="host-drawer-bd"></div>
+<aside class="drawer" id="host-drawer" aria-hidden="true" aria-label="商品速覽">
+  <button type="button" class="dclose" id="host-drawer-close" aria-label="關閉側欄">✕</button>
+  <div id="host-drawer-body"></div>
+</aside>
 
 <div class="wrap">
   <div class="backhome"><a href="../index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>回專案入口</a></div>
@@ -587,6 +599,59 @@
   }
   Array.prototype.slice.call(document.querySelectorAll('#view-planner .recon-tabs span')).forEach(function(s){s.addEventListener('click',function(){renderRecon(s.dataset.rv);});});
   renderRecon('session');
+
+  // 直播主 H2：直播行事曆 → 點場次看商品+案型;每商品開 side panel 看話術/售價/賣點
+  var prods={
+    pro:{name:'益生菌 30入',brand:'綠研所',price:'$880 / 盒（含稅)',deal:'買 3 送 1（付 3 得 4)',
+      scripts:['腸道是第二大腦,換季最有感','買 3 送 1 等於打 8 折,囤一季剛剛好','空腹配溫水,吸收最好'],
+      points:['活菌數 200 億','專利包埋耐胃酸','無添加色素香料']},
+    ess:{name:'亮采精華液 30ml',brand:'SkinGlow 膚光',price:'$1,344 / 瓶（含稅)',deal:'2 入組合 $1,659',
+      scripts:['熬夜暗沉救星,兩週有感','2 入家庭號,姐妹一起買更划算','上妝前三滴,服貼不卡粉'],
+      points:['高濃度精萃','無香料無酒精','第三方檢驗']},
+    dif:{name:'擴香組',brand:'HomeWarm 暖窩',price:'$1,200 / 組（含稅)',deal:'滿 $1,000 送香氛袋',
+      scripts:['進門那一刻的儀式感','滿千送香氛袋,送禮自用兩相宜','天然精油,寵物友善'],
+      points:['天然精油','可購補充瓶','八款香氛']},
+    col:{name:'膠原蛋白飲 14入',brand:'綠研所',price:'$1,050 / 盒（含稅)',deal:'2 入組合',
+      scripts:['睡前一瓶,隔天澎潤','2 入組合補貨價','小分子好吸收'],
+      points:['小分子胜肽','低糖配方','添加維他命 C']}
+  };
+  var hbc={
+    'LS-0904':{date:'09-04（五)',badge:['green','已播畢'],sub:'已播畢 · 可看分潤',prods:['ess','dif'],invite:false},
+    'LS-0918':{date:'09-18（五)',badge:['teal','已確認·即將'],sub:'已接受 · 即將開播 · 主播 Bella（+1 共同主播)',prods:['pro','ess','dif'],invite:false},
+    'LS-0929':{date:'09-29（二)',badge:['amber','受邀 DRAFT'],sub:'邀請中 · 待你回覆',prods:['pro','col'],invite:true}
+  };
+  function hostCard(k){var p=prods[k],pr=p.price.split(' / ');return '<div class="card prod"><span class="brand">'+p.brand+'</span><span class="pn">'+p.name+'</span><span class="deal"><b>'+p.deal+'</b></span><span class="price">'+pr[0]+' <small>/ '+pr[1]+'</small></span><button type="button" class="btn linkbtn" data-prod="'+k+'">話術・售價・賣點 →</button></div>';}
+  function renderHostSess(id){
+    var box=document.getElementById('host-sess-detail'),s=hbc[id]; if(!box||!s)return;
+    var cards=s.prods.map(hostCard).join('');
+    var actions=s.invite?'<div class="actions"><button type="button" class="btn primary">接受檔期</button><button type="button" class="btn">婉拒</button></div>':'';
+    box.innerHTML='<div class="ch"><span class="ci"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/></svg></span><h3>'+id+' · '+s.date+'</h3><span class="pill '+s.badge[0]+'" style="margin-left:auto">'+s.badge[1]+'</span></div>'+
+      '<p class="sublead">'+s.sub+'</p><div class="grid c3">'+cards+'</div>'+actions;
+    Array.prototype.slice.call(box.querySelectorAll('.linkbtn')).forEach(function(b){b.addEventListener('click',function(){openDrawer(b.dataset.prod);});});
+    Array.prototype.slice.call(document.querySelectorAll('#view-host .cal .sx')).forEach(function(c){c.classList.toggle('on',c.dataset.sess===id);});
+  }
+  function openDrawer(k){
+    var p=prods[k]; if(!p)return;
+    document.getElementById('host-drawer-body').innerHTML=
+      '<span class="dbrand">'+p.brand+'</span><div class="dttl">'+p.name+'</div>'+
+      '<div class="drow"><span>售價</span><b>'+p.price+'</b></div>'+
+      '<div class="ddeal">案型：'+p.deal+'</div>'+
+      '<div class="dsec">話術</div><ul class="dlist">'+p.scripts.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>'+
+      '<div class="dsec">賣點</div><div class="tagpick">'+p.points.map(function(x){return '<span class="tp">'+x+'</span>';}).join('')+'</div>';
+    document.getElementById('host-drawer').classList.add('open');
+    document.getElementById('host-drawer').setAttribute('aria-hidden','false');
+    document.getElementById('host-drawer-bd').classList.add('open');
+  }
+  function closeDrawer(){
+    var d=document.getElementById('host-drawer'); if(!d)return;
+    d.classList.remove('open'); d.setAttribute('aria-hidden','true');
+    document.getElementById('host-drawer-bd').classList.remove('open');
+  }
+  Array.prototype.slice.call(document.querySelectorAll('#view-host .cal .sx')).forEach(function(c){c.addEventListener('click',function(){renderHostSess(c.dataset.sess);});});
+  var hdc=document.getElementById('host-drawer-close'); if(hdc)hdc.addEventListener('click',closeDrawer);
+  var hdb=document.getElementById('host-drawer-bd'); if(hdb)hdb.addEventListener('click',closeDrawer);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeDrawer();});
+  renderHostSess('LS-0918');
 
   window.addEventListener('hashchange',function(){showRole((location.hash||'').replace('#',''));});
   showRole((location.hash||'').replace('#',''));
