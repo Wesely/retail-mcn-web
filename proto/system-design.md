@@ -206,6 +206,5 @@ LS-0918 worked example（以 net 為基數）：
 
 ## 11. 下一步
 
-1. 本文 review 定稿後 → 產出 **HTML 架構圖**（沿用 page3 視覺：三層 + 五庫 + Session 聚合根 + 狀態機 + 結算流），作為對工程師的 pitch 主畫面。
-2. 圖旁附 **說明文件**（即本文精簡版 + worked example）。
-3. 鎖定 **Phase 1 自建結算薄層**的 schema 與 API，進入實作規劃。
+1. ✅ 已產出 **HTML 架構圖** → `pages/system-design.html`（§1-9 視覺化：設計原則 / 概念資料模型(ER) / Session 狀態機 / 流程 / 結算模型 / 平台中立 adapter / AI 治理 / 自建vs拼裝+路線 / TBD 掛鉤），作為對工程師的 pitch 主畫面;沿用 page3 視覺語言,比 page3 鳥瞰更深一層。
+2. 鎖定 **Phase 1 自建結算薄層**的 schema 與 API，進入實作規劃。

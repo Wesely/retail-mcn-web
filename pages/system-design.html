@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>系統設計 · 給工程師的提案（內部）— Live MCN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system-design.css">
+</head>
+<body>
+
+<div class="ibar"><div class="wrap"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span><b>內部 · 工程提案</b> · 對應 <span class="mono">proto/system-design.md</span> · worked example＝<span class="mono">LS-0918</span> 同場多品牌</span></div></div>
+
+<header class="head">
+  <div class="wrap">
+    <a class="top" href="../index.html"><span class="m"></span><span class="ttl">Live MCN<span>SYSTEM DESIGN</span></span></a>
+    <h1>系統設計｜給工程師的提案</h1>
+    <p>把 <span class="mono">system-design.md</span> 攤成可講的架構圖:概念資料模型、聚合根、狀態機、結算邏輯、平台中立整合、與「自建 vs 拼裝」落地路線。比 <a href="page3.html">系統架構規劃（鳥瞰）</a> 更深一層的工程規格。</p>
+    <div class="tagrow">
+      <span class="t teal">B2B-only</span><span class="t amber">不碰 C 端</span><span class="t violet">Agent / Net</span><span class="t green">平台中立</span><span class="t teal">含稅 / 未稅雙向</span><span class="t coral">AI 不做決策</span>
+    </div>
+  </div>
+</header>
+
+<!-- §1 設計原則 -->
+<section>
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§1</span>設計原則（不可違反的硬約束）</h2>
+    <p class="sec-lead">這些約束決定資料模型與系統邊界,任何實作不得違反。</p>
+    <div class="princ-grid">
+      <div class="pr"><b>B2B-only · 不碰 C 端</b><p>不接金流、不持顧客個資、不負客服;消費者側全在渠道／品牌之間。</p><span class="src">brief §7.10</span></div>
+      <div class="pr"><b>Agent / Net 認列</b><p>只認佣金為營收,不認 GMV 全額。模型必須能單獨算出「佣金」這個數。</p><span class="src">brief §2 · §7.1</span></div>
+      <div class="pr"><b>平台中立</b><p>不綁定任何收單系統（就醬播只是選項之一）。對接走 adapter,先期可手動匯入。</p><span class="src">brief §7.9</span></div>
+      <div class="pr"><b>含稅 / 未稅雙向</b><p>每個價格帶帶 <span class="mono">tax_inclusive</span> flag,系統自動換算另一邊。</p><span class="src">brief §2</span></div>
+      <div class="pr"><b>AI 不做決策</b><p>AI 做記錄、案型模仿、評分、建議;人拍板。條例歸案是基礎。</p><span class="src">brief §7.7 · §12</span></div>
+      <div class="pr"><b>分級內部 only</b><p>直播主分級 S/A/B/C 是 DB 欄位,對外不可見（外部只說 Tag 化配對）。</p><span class="src">brief §7.8 · 附錄 B-10</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 概念資料模型 -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§2</span>概念資料模型（與工具無關）</h2>
+    <p class="sec-lead">對應 page3「五大資料庫」,展開為實體 + 關係。核心是 <b>Session（直播檔次）聚合根</b>,把五庫 join 起來;結算的歸戶粒度是 <b>(Session × Brand)</b>。</p>
+
+    <div class="ergroup">
+      <div class="gl">主檔（五大庫）</div>
+      <div class="ents">
+        <div class="ent"><div class="eh">場地 <small>Venue</small></div><ul><li><span>venue_id</span><span class="pk">PK</span></li><li><span>capacity</span><span class="ty">int</span></li><li><span>layout · photos[]</span><span class="ty">—</span></li><li><span>is_self_owned</span><span class="ty">false</span></li></ul></div>
+        <div class="ent"><div class="eh">品牌 <small>Brand</small></div><ul><li><span>brand_id</span><span class="pk">PK</span></li><li><span>name · tags[]</span><span class="ty">—</span></li><li><span>terms</span><span class="ty">json</span></li></ul></div>
+        <div class="ent"><div class="eh">直播主 <small>Creator</small></div><ul><li><span>creator_id</span><span class="pk">PK</span></li><li><span>tags[]</span><span class="ty">tag</span></li><li><span>grade S/A/B/C</span><span class="ty">enum*</span></li><li><span>channels[]</span><span class="ty">—</span></li></ul></div>
+        <div class="ent"><div class="eh">案型 <small>DealType</small></div><ul><li><span>deal_id</span><span class="pk">PK</span></li><li><span>type</span><span class="ty">enum</span></li><li><span>rule</span><span class="ty">json</span></li><li><span>ai_source_ref</span><span class="fk">FK</span></li></ul></div>
+      </div>
+    </div>
+
+    <div class="ergroup">
+      <div class="gl">品牌庫子實體</div>
+      <div class="ents c3">
+        <div class="ent"><div class="eh">商品 <small>Product</small></div><ul><li><span>product_id</span><span class="pk">PK</span></li><li><span>brand_id</span><span class="fk">FK</span></li><li><span>category_tags[]</span><span class="ty">tag</span></li></ul></div>
+        <div class="ent"><div class="eh">報價 <small>Quote</small></div><ul><li><span>quote_id</span><span class="pk">PK</span></li><li><span>product_id</span><span class="fk">FK</span></li><li><span>tax_inclusive</span><span class="ty">bool</span></li><li><span>supply / suggested</span><span class="ty">money</span></li></ul></div>
+      </div>
+    </div>
+
+    <div class="ergroup">
+      <div class="gl">聚合根 + 選品行</div>
+      <div class="ents c3">
+        <div class="ent root"><div class="eh">直播檔次 <small>Session · 聚合根</small></div><ul><li><span>session_id</span><span class="pk">PK</span></li><li><span>venue_id</span><span class="fk">FK</span></li><li><span>creator_id</span><span class="fk">FK</span></li><li><span>scheduled_at</span><span class="ty">ts</span></li><li><span>status</span><span class="ty">enum</span></li></ul></div>
+        <div class="ent"><div class="eh">選品行 <small>LineItem</small></div><ul><li><span>line_id</span><span class="pk">PK</span></li><li><span>session_id</span><span class="fk">FK</span></li><li><span>product_id · deal_id</span><span class="fk">FK</span></li><li><span>unit_price · tax_inclusive</span><span class="ty">—</span></li></ul></div>
+      </div>
+    </div>
+
+    <div class="ergroup">
+      <div class="gl">結算庫</div>
+      <div class="ents c3">
+        <div class="ent agg"><div class="eh">結算行 <small>SettlementLine</small></div><ul><li><span>settle_id</span><span class="pk">PK</span></li><li><span>session_id · brand_id</span><span class="fk">FK</span></li><li><span>gmv · returns · net_gmv</span><span class="ty">money</span></li><li><span>take_rate · commission</span><span class="ty">—</span></li><li><span>commission_base</span><span class="ty">gross|net</span></li></ul></div>
+        <div class="ent"><div class="eh">爭議單 <small>DisputeTicket</small></div><ul><li><span>dispute_id</span><span class="pk">PK</span></li><li><span>settle_id</span><span class="fk">FK</span></li><li><span>shipped / reported / diff</span><span class="ty">int</span></li><li><span>status</span><span class="ty">enum</span></li></ul></div>
+        <div class="ent"><div class="eh">場後評分 <small>Scorecard</small></div><ul><li><span>score_id</span><span class="pk">PK</span></li><li><span>session_id · brand_id</span><span class="fk">FK</span></li><li><span>ai_grade · feedback</span><span class="ty">—</span></li></ul></div>
+      </div>
+    </div>
+
+    <div class="ergroup">
+      <div class="gl">關係（文字 ER · 含 cardinality）</div>
+      <div class="rel">
+<span class="c">// 主檔</span>
+<span class="e">Brand</span> ─1:N─ <span class="e">Product</span> ─1:N─ <span class="e">Quote</span>
+<span class="c">// 聚合</span>
+<span class="agg">Session</span> ─N:1─ <span class="e">Venue</span>
+<span class="agg">Session</span> ─N:1─ <span class="e">Creator</span>   <span class="c">// 多主播時 → N:N（經 join 表）</span>
+<span class="agg">Session</span> ─1:N─ <span class="e">LineItem</span> ─N:1─ <span class="e">Product</span>
+                       └─N:1─ <span class="e">DealType</span>
+<span class="c">// 結算（每場每品牌一行）</span>
+<span class="agg">Session</span> ─1:N─ <span class="card">SettlementLine</span> ─N:1─ <span class="e">Brand</span>
+<span class="card">SettlementLine</span> ─1:0..1─ <span class="e">DisputeTicket</span>
+<span class="agg">Session</span> × <span class="e">Brand</span> ─1:1─ <span class="e">Scorecard</span>
+      </div>
+      <div class="callout">
+        <span class="ci"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span>
+        <div><b>關鍵決定：結算歸戶粒度 = (Session × Brand)</b><p>不是 Session、也不是 Brand。LS-0918 一場三品牌 = 三條 SettlementLine。這一刀直接解掉 <b>B4（同場多品牌歸戶）</b>;「同場單品牌」自動是退化情況（一條），日後不需重構。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 狀態機 -->
+<section>
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§3</span>直播檔次狀態機（Session.status）</h2>
+    <p class="sec-lead">一場直播的生命週期;結算時機（B1）= 「commission 在哪個狀態被認列」,做成設定不寫死。</p>
+    <div class="fsm">
+      <div class="st s1"><span class="b">草稿</span><span class="en">draft</span></div>
+      <span class="ar">→</span>
+      <div class="st s2"><span class="b">已排程</span><span class="en">scheduled</span></div>
+      <span class="ar">→</span>
+      <div class="st s3"><span class="b">直播中</span><span class="en">live</span></div>
+      <span class="ar">→</span>
+      <div class="st s4"><span class="b">對帳中</span><span class="en">reconciling</span></div>
+      <span class="ar">→</span>
+      <div class="st s5"><span class="b">已結算</span><span class="en">settled</span></div>
+    </div>
+    <div class="fsm-note">
+      <div><b>對帳中 期間的子流程：</b><p>任一 SettlementLine 出現「出貨數 ≠ 回報數」→ 開 DisputeTicket（開立 → 對帳中 → 裁決 → 結案，<b>B5</b>）。所有爭議結案後 Session 才可 → 已結算。LS-0918 目前卡在此（綠研所 215≠210 → #D-0918-01）。草稿／已排程可 → 取消。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- §4 流程 -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§4</span>流程 → 模組 → 資料寫入</h2>
+    <p class="sec-lead">直播前 / 中 / 後,每個動作對應的模組與寫入點。</p>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead><tr><th>階段</th><th>動作</th><th>模組</th><th>寫入</th></tr></thead>
+        <tbody>
+          <tr><td>前</td><td>品牌進件、報價建檔、打 Tag</td><td>品牌管理</td><td class="mono">Brand · Product · Quote</td></tr>
+          <tr><td>前</td><td>Tag 配對直播主</td><td>配對引擎</td><td class="mono">(讀) Creator · Product</td></tr>
+          <tr><td>前</td><td>案型設計（AI 模仿）+ 銷量預估</td><td>案型 + AI</td><td class="mono">DealType</td></tr>
+          <tr><td>前</td><td>選品、定價（含稅/未稅換算）</td><td>選品</td><td class="mono">LineItem</td></tr>
+          <tr><td>前</td><td>排場地、排程、建 Session</td><td>排期</td><td class="mono">Session · LineItem</td></tr>
+          <tr><td>中</td><td>場控、流程、即時數據</td><td>場控</td><td class="mono">Session.status</td></tr>
+          <tr><td>後</td><td>雙邊回報、對帳、開爭議單</td><td>對帳</td><td class="mono">SettlementLine · DisputeTicket</td></tr>
+          <tr><td>後</td><td>退貨歸屬、多品牌歸戶、開佣金</td><td>結算</td><td class="mono">SettlementLine.commission</td></tr>
+          <tr><td>後</td><td>AI 場後評分、數據回饋</td><td>AI</td><td class="mono">Scorecard</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- §5 結算模型 -->
+<section>
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§5</span>結算與佣金模型（Agent / Net）</h2>
+    <p class="sec-lead">每條 SettlementLine（場次 × 品牌）獨立計算;我方只認佣金為營收。</p>
+    <div class="code"><span class="c">// 每條 SettlementLine（場次 × 品牌）</span>
+net_gmv    = gmv − returns
+base       = (commission_base == gross) ? gmv : net_gmv      <span class="c">← B1/B2 可配置</span>
+commission = base × take_rate
+
+我方營收認列 = Σ commission        <span class="c">（不認 GMV → IFRS 15 Agent）</span> = <span class="hl">25,440</span>
+營業稅 5% 基數 = Σ commission
+直播主團隊淨分潤 = net_gmv − 品牌供貨成本 − commission         = <span class="v">~120,860</span>
+品牌方        = supply_price × 售出數 − returns</div>
+    <div class="tablewrap" style="margin-top:16px">
+      <table class="tbl">
+        <thead><tr><th>品牌（LS-0918）</th><th class="num">GMV</th><th class="num">退貨</th><th class="num">淨 GMV</th><th class="num">commission 8%</th></tr></thead>
+        <tbody>
+          <tr><td>綠研所</td><td class="num">180,000</td><td class="num">12,000</td><td class="num">168,000</td><td class="num">13,440</td></tr>
+          <tr><td>SkinGlow 膚光</td><td class="num">95,000</td><td class="num">5,000</td><td class="num">90,000</td><td class="num">7,200</td></tr>
+          <tr><td>HomeWarm 暖窩</td><td class="num">60,000</td><td class="num">0</td><td class="num">60,000</td><td class="num">4,800</td></tr>
+          <tr class="total"><td>Σ</td><td class="num">335,000</td><td class="num">17,000</td><td class="num">318,000</td><td class="num">25,440</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">// 含稅／未稅：結算前統一換算到同一基準（×1.05 / ÷1.05），避免混算。膚光未稅 $1,580 → 含稅 $1,659。</p>
+  </div>
+</section>
+
+<!-- §6 平台中立整合層 -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§6</span>平台中立整合層（adapter）</h2>
+    <p class="sec-lead">先期不對接 API、走手動匯入;要對接時每個收單系統寫一個 adapter,把它的銷售／退貨正規化成 SettlementLine,核心模型不變。</p>
+    <div class="adapter">
+      <div class="col">
+        <div class="nb">就醬播</div>
+        <div class="nb">收單系統 B</div>
+        <div class="nb">收單系統 C</div>
+        <div class="nb dash">手動匯入 CSV（先期預設）</div>
+      </div>
+      <div class="arx">→</div>
+      <div class="mid"><b>Adapter</b><span>正規化為 SettlementLine 草稿</span></div>
+      <div class="arx">→</div>
+      <div class="sink">結算庫</div>
+    </div>
+    <p class="note">// 系統永不接觸 C 端金流／個資;adapter 只收「銷售收斂量」這類 B2B 對帳數字。</p>
+  </div>
+</section>
+
+<!-- §7 AI 治理層 -->
+<section>
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§7</span>AI 治理層</h2>
+    <p class="sec-lead">AI 做記錄、模仿、評分、建議——不拍板。</p>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead><tr><th>能力</th><th>做什麼</th><th>工具方向</th></tr></thead>
+        <tbody>
+          <tr><td>案型模仿</td><td>LLM + few-shot 學專家案型（需先有零散商品清單）</td><td class="mono">Claude / Claude Code</td></tr>
+          <tr><td>銷量預估</td><td>依品類 / 直播主歷史給預估</td><td class="mono">LLM + 歷史資料</td></tr>
+          <tr><td>場後評分</td><td>每品牌獨立 Scorecard + 數據回饋</td><td class="mono">LLM</td></tr>
+          <tr><td>決策諮詢</td><td>跨資料源查詢,提供決策資訊與建議（<b>不拍板</b>）</td><td class="mono">自架 agent + 知識庫</td></tr>
+          <tr><td>條例歸案</td><td>原則 / 合約 / TBD 決議入庫,living spec</td><td class="mono">Notion / Obsidian</td></tr>
+          <tr><td>會議紀錄</td><td>轉錄、摘要、行動項</td><td class="mono">Fireflies / Otter</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- §8 自建 vs 拼裝 + 路線 -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§8</span>落地：自建 vs 拼裝現成工具</h2>
+    <p class="sec-lead">技術可行性整體 🟢-🟡,無真正 blocker;最大不確定性在商業條款（B1-B5），不是工程題。因此<b>不該一開始就重金自建</b>。</p>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead><tr><th>子系統</th><th>拼裝現成</th><th>自建</th><th>建議</th></tr></thead>
+        <tbody>
+          <tr><td>五大資料庫 CRUD</td><td>Airtable / NocoDB <span class="ph g">易</span></td><td>過度投資</td><td><b>拼裝</b></td></tr>
+          <tr><td>Session 聚合 + 狀態機</td><td>自動化勉強 <span class="ph y">中</span></td><td>清楚但要工 <span class="ph g">可</span></td><td>拼裝起步 → 痛了自建</td></tr>
+          <tr><td>結算 / 對帳 / 多品牌歸戶</td><td>現成工具弱 <span class="ph r">難</span></td><td>必要 <span class="ph g">可</span></td><td><b>自建薄層</b>（核心價值）</td></tr>
+          <tr><td>含稅 / 未稅換算</td><td>公式欄位可 <span class="ph y">中</span></td><td>簡單</td><td>隨結算層自建</td></tr>
+          <tr><td>平台中立 adapter</td><td>—</td><td>每系統一個 <span class="ph y">中</span></td><td>延後,先手動匯入</td></tr>
+          <tr><td>三視角 UI（原型）</td><td>工具視圖醜 <span class="ph y">中</span></td><td>自建前端 <span class="ph g">可</span></td><td>階段 2 自建</td></tr>
+          <tr><td>CRM（品牌 / 直播主）</td><td>HubSpot / Notion <span class="ph g">易</span></td><td>—</td><td><b>拼裝</b></td></tr>
+          <tr><td>AI 治理</td><td>Claude Code + Notion + Fireflies <span class="ph g">易</span></td><td>—</td><td><b>拼裝</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="sec" style="margin-top:34px">建議路線（對齊 brief 時程）</h2>
+    <div class="road">
+      <div class="ph now"><div class="pt"><span class="n">Phase 0</span><span class="d">2026-07 · MVP</span></div><h4>跑得動</h4><ul><li>五庫 + Session 用 Airtable / NocoDB</li><li>知識庫 Notion、會議 Fireflies</li><li>AI 用 Claude Code</li><li>銷售資料手動匯入</li></ul></div>
+      <div class="ph"><div class="pt"><span class="n">Phase 1</span><span class="d">2026-08 · 試營運</span></div><h4>自建結算薄層</h4><ul><li>多品牌歸戶 (B4)</li><li>含稅 / 未稅、B1/B2 可配置佣金基數</li><li>爭議單 (B5)</li><li>跑通 1-2 場、發現坑修坑</li></ul></div>
+      <div class="ph"><div class="pt"><span class="n">Phase 2</span><span class="d">2026-09+ · 對外</span></div><h4>自建前端 + adapter</h4><ul><li>三視角前端（原型即藍圖）</li><li>視需要加收單系統 adapter</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- §9 TBD 風險掛鉤 -->
+<section>
+  <div class="wrap">
+    <h2 class="sec"><span class="k">§9</span>風險 / 待決掛鉤</h2>
+    <p class="sec-lead">哪個設計點卡在哪條紅色 TBD——工程不是 blocker,商業條款才是。</p>
+    <div class="tablewrap">
+      <table class="tbl">
+        <thead><tr><th>設計點</th><th>卡在</th><th>影響</th></tr></thead>
+        <tbody>
+          <tr><td><span class="mono">commission_base</span> gross vs net</td><td><b>B1 / B2</b></td><td>佣金金額、認列時點、現金流</td></tr>
+          <tr><td>退貨損益歸屬欄位</td><td><b>B2</b></td><td>SettlementLine 要不要記「誰吃退貨」</td></tr>
+          <tr><td>補單 take rate</td><td><b>B3</b></td><td>LineItem 是否區分首單 / 補單費率</td></tr>
+          <tr><td>(Session × Brand) 歸戶</td><td><b>B4</b></td><td>已採用為核心粒度（本文關鍵決定）</td></tr>
+          <tr><td>DisputeTicket 狀態流</td><td><b>B5</b></td><td>裁決流程定不下來 → 結算卡關</td></tr>
+          <tr><td>直播主視角資料可見度</td><td><b>S1</b></td><td>隱藏讓價空間,防跳單（見原型直播主視角）</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="backhome"><a href="../index.html"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>回專案入口</a></div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>Live MCN · 系統設計工程提案 · living document</span>
+    <a href="prototype.html">相關：三角色工作流程原型 →</a>
+  </div>
+</footer>
+
+</body>
+</html>
